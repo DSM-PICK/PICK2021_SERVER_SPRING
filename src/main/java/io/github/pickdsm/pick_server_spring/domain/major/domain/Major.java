@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import io.github.pickdsm.pick_server_spring.domain.location.domain.Location;
 import io.github.pickdsm.pick_server_spring.domain.student.domain.Student;
 import io.github.pickdsm.pick_server_spring.domain.teacher.domain.Teacher;
 import lombok.AccessLevel;
@@ -36,11 +37,16 @@ public class Major {
 	@JoinColumn(name = "teacher_id")
 	private Teacher teacher;
 
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "location_id")
+	private Location location;
+
 	@Builder
-	public Major(String name, Student student, Teacher teacher) {
+	public Major(String name, Student student, Teacher teacher, Location location) {
 		this.name = name;
 		this.student = student;
 		this.teacher = teacher;
+		this.location = location;
 	}
 
 }

@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import io.github.pickdsm.pick_server_spring.domain.location.domain.Location;
 import io.github.pickdsm.pick_server_spring.domain.major.domain.Major;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -34,11 +35,16 @@ public class Student {
 	@JoinColumn(name = "major_id")
 	private Major major;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "location_id")
+	private Location location;
+
 	@Builder
-	public Student(String gcn, String state, Major major) {
+	public Student(String gcn, String state, Major major, Location location) {
 		this.gcn = gcn;
 		this.state = state;
 		this.major = major;
+		this.location = location;
 	}
 
 }
