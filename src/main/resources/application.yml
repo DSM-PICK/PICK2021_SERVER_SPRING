@@ -1,0 +1,32 @@
+spring:
+  jpa:
+    database: mysql
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+  datasource:
+    url: jdbc:mysql://${DB_URL}:3306/${DB_NAME}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jackson.property-naming-strategy: SNAKE_CASE
+
+  redis:
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
+    password: ${REDIS_PASS}
+
+jwt:
+  secretKey: ${JWT_SECRET}
+  access.exp: ${JWT_ACCESS_EXP}
+  refresh.exp: ${JWT_REFRESH_EXP}
+  header: ${JWT_HEADER}
+  prefix: ${JWT_PREFIX}
+
+logging:
+  name: ${LOG_NAME:pick.log}
+  file.path: ${LOG_PATH:./}
+  size: ${LOG_SIZE:10}
+
+teacher.code: ${REGISTER_CODE:0000}
