@@ -24,14 +24,9 @@ jwt:
   header: ${JWT_HEADER}
   prefix: ${JWT_PREFIX}
 
-oauth:
-  redirect-uri: ${OAUTH_URI}
-  client-id: ${OAUTH_ID}
-  secret: ${OAUTH_SECRET}
-
 logging:
-  name: ${LOG_NAME}
-  file.path: ${LOG_PATH}
-  size: ${LOG_SIZE}
+  name: ${LOG_NAME:pick.log}
+  file.path: ${LOG_PATH:./}
+  size: ${LOG_SIZE:10}
 
-teacher.code: ${REGISTER_CODE}
+teacher.code: ${REGISTER_CODE:0000}
