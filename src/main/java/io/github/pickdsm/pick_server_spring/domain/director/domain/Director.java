@@ -24,6 +24,8 @@ public class Director {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	private int floor;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "schedule_id")
 	private Schedule schedule;
@@ -32,13 +34,11 @@ public class Director {
 	@JoinColumn(name = "teacher_id")
 	private Teacher teacher;
 
-	private int floor;
-
 	@Builder
-	public Director(Schedule schedule, Teacher teacher, int floor) {
+	public Director(int floor, Schedule schedule, Teacher teacher) {
+		this.floor = floor;
 		this.schedule = schedule;
 		this.teacher = teacher;
-		this.floor = floor;
 	}
 
 }
