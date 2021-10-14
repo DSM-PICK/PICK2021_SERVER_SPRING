@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import io.github.pickdsm.pick_server_spring.domain.schedule.domain.Schedule;
 import io.github.pickdsm.pick_server_spring.domain.teacher.domain.Teacher;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -24,13 +25,18 @@ public class Director {
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "schedule_id")
+	private Schedule schedule;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "teacher_id")
 	private Teacher teacher;
 
 	private int floor;
 
 	@Builder
-	public Director(Teacher teacher, int floor) {
+	public Director(Schedule schedule, Teacher teacher, int floor) {
+		this.schedule = schedule;
 		this.teacher = teacher;
 		this.floor = floor;
 	}
