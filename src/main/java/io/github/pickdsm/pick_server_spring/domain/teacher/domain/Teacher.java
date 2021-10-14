@@ -3,11 +3,14 @@ package io.github.pickdsm.pick_server_spring.domain.teacher.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
+import io.github.pickdsm.pick_server_spring.domain.location.domain.Location;
 import io.github.pickdsm.pick_server_spring.domain.teacher.domain.types.Role;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,11 +34,16 @@ public class Teacher {
 	@Enumerated
 	private Role role;
 
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "location_id")
+	private Location location;
+
 	@Builder
-	public Teacher(String name, String password, Role role) {
+	public Teacher(String name, String password, Role role, Location location) {
 		this.name = name;
 		this.password = password;
 		this.role = role;
+		this.location = location;
 	}
 
 }
