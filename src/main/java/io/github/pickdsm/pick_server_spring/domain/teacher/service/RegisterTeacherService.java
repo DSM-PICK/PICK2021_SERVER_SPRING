@@ -31,11 +31,12 @@ public class RegisterTeacherService {
 				.isPresent())
 			throw new AlreadyExistTeacherException();
 
-		if(request.getCode().equals(code))
+		if(!request.getCode().equals(code))
 			throw new InvalidCodeException();
 
 		Teacher teacher = teacherRepository.save(
 				Teacher.builder()
+				.id(request.getCode())
 				.name(request.getName())
 				.password(
 						passwordEncoder.encode(request.getPassword())
