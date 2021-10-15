@@ -36,7 +36,7 @@ public class RegisterTeacherService {
 
 		Teacher teacher = teacherRepository.save(
 				Teacher.builder()
-				.id(request.getCode())
+				.id(request.getId())
 				.name(request.getName())
 				.password(
 						passwordEncoder.encode(request.getPassword())
