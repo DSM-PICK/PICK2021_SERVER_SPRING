@@ -10,10 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import io.github.pickdsm.pick_server_spring.global.error.exception.ErrorCode;
 import io.github.pickdsm.pick_server_spring.global.error.exception.PickException;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+@Component
 public class GlobalExceptionFilter extends OncePerRequestFilter {
-
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

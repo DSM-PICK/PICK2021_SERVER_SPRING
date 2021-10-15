@@ -26,7 +26,7 @@ public class RegisterRequest {
 	, message = "password는 영문(대소문자 구분), 숫자, 특수기호(~!@#*_) 포함 8자리 이상입니다.")
 	private String password;
 
-	@NotEmpty(message = "code는 비어잇으면 안됩니다.")
+	@NotEmpty(message = "code는 비어있으면 안됩니다.")
 	private String code;
 
 }

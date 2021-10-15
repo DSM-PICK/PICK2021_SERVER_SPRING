@@ -39,7 +39,8 @@ public class Teacher {
 	private Location location;
 
 	@Builder
-	public Teacher(String name, String password, Role role, Location location) {
+	public Teacher(String id, String name, String password, Role role, Location location) {
+		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.role = role;
