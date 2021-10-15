@@ -14,7 +14,8 @@ public enum ErrorCode {
 	INVALID_CODE(401, "Invalid code."),
 	CREDENTIALS_NOT_FOUND(401, "Credentials not found."),
 	EXPIRED_ACCESS_TOKEN(401, "Expired access token."),
-	INVALID_TOKEN(401, "Invalid token.");
+	INVALID_TOKEN(401, "Invalid token."),
+	WRONG_PASSWORD(401, "Wrong password.");
 
 	private final int status;
 	private final String message;
