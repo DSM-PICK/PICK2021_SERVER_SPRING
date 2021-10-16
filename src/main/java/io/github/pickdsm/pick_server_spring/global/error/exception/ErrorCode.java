@@ -15,7 +15,8 @@ public enum ErrorCode {
 	CREDENTIALS_NOT_FOUND(401, "Credentials not found."),
 	EXPIRED_ACCESS_TOKEN(401, "Expired access token."),
 	INVALID_TOKEN(401, "Invalid token."),
-	WRONG_PASSWORD(401, "Wrong password.");
+	WRONG_PASSWORD(401, "Wrong password."),
+	TEACHER_NOT_FOUND(404, "Teacher not found.");
 
 	private final int status;
 	private final String message;
