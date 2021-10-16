@@ -9,6 +9,7 @@ import io.github.pickdsm.pick_server_spring.domain.teacher.facade.TeacherFacade;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.request.PasswordRequest;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class ChangePasswordService {
 
 	private final TeacherRepository teacherRepository;
+	private final PasswordEncoder passwordEncoder;
 	private final TeacherFacade teacherFacade;
 
 	@Transactional
@@ -23,7 +25,9 @@ public class ChangePasswordService {
 		Teacher teacher = teacherRepository
 				.findById(teacherFacade.getCurrentTeacherId())
 				.orElseThrow(CredentialsNotFoundException::new);
-		teacher.changePassword(request.getPassword());
+		teacher.changePassword(
+				passwordEncoder.encode(request.getPassword())
+		);
 	}
 
 }
