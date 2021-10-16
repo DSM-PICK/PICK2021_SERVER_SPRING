@@ -16,12 +16,12 @@ public class GlobalExceptionHandler {
 	protected ResponseEntity<ErrorResponse> pickExceptionHandler(PickException e) {
 		ErrorCode code = e.getErrorCode();
 		return new ResponseEntity<>(new ErrorResponse(code.getStatus(),
-				code.getMessage()), HttpStatus.valueOf(code.getStatus()));
+				code.getCode(), code.getMessage()), HttpStatus.valueOf(code.getStatus()));
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	protected ResponseEntity<ErrorResponse> validatorExceptionHandler(MethodArgumentNotValidException e) {
-		return new ResponseEntity<>(new ErrorResponse(400,
+		return new ResponseEntity<>(new ErrorResponse(400, "APPLICATION-400-0",
 				e.getBindingResult().getAllErrors().get(0).getDefaultMessage()),
 				HttpStatus.BAD_REQUEST);
 	}

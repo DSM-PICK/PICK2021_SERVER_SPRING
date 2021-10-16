@@ -23,7 +23,7 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
 		} catch (PickException e) {
 			ErrorCode errorCode = e.getErrorCode();
 			ErrorResponse errorResponse =
-					new ErrorResponse(errorCode.getStatus(), errorCode.getMessage());
+					new ErrorResponse(errorCode.getStatus(), errorCode.getCode(), errorCode.getMessage());
 			response.setStatus(errorCode.getStatus());
 			response.setContentType("application/json");
 			response.getWriter().write(errorResponse.toString());
