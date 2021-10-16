@@ -11,7 +11,8 @@ import lombok.Getter;
 public enum ErrorCode {
 
 	EXPIRED_ACCESS_TOKEN(401, "SECURITY-401-1", "Expired access token."),
-	INVALID_TOKEN(401, "SECURITY-401-2", "Invalid token."),
+	EXPIRED_REFRESH_TOKEN(401, "SECURITY-401-2", "Expired refresh token"),
+	INVALID_TOKEN(401, "SECURITY-401-3", "Invalid token."),
 
 	ALREADY_EXIST_TEACHER(400, "TEACHER-400-1", "Already exist teacher."),
 	INVALID_CODE(401, "TEACHER-401-1", "Invalid code."),
