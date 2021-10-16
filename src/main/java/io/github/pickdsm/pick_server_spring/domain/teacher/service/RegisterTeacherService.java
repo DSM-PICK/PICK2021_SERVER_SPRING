@@ -7,6 +7,7 @@ import io.github.pickdsm.pick_server_spring.domain.teacher.exception.AlreadyExis
 import io.github.pickdsm.pick_server_spring.domain.teacher.exception.InvalidCodeException;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.request.RegisterRequest;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.response.TokenResponse;
+import io.github.pickdsm.pick_server_spring.domain.teacher.utils.JwtUtils;
 import io.github.pickdsm.pick_server_spring.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 
@@ -45,13 +46,7 @@ public class RegisterTeacherService {
 				.build()
 		);
 
-		String accessToken = jwtTokenProvider
-				.generateAccessToken(teacher);
-
-		String refreshToken = jwtTokenProvider
-				.generateRefreshToken(teacher);
-
-		return new TokenResponse(accessToken, refreshToken);
+		return JwtUtils.getToken(teacher);
 	}
 
 }
