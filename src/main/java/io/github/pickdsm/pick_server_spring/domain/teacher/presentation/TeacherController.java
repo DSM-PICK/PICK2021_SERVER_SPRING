@@ -3,11 +3,13 @@ package io.github.pickdsm.pick_server_spring.domain.teacher.presentation;
 import javax.validation.Valid;
 
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.request.LoginRequest;
+import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.request.NameRequest;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.request.PasswordRequest;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.request.RegisterRequest;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.request.TokenRequest;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.response.InformationResponse;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.response.TokenResponse;
+import io.github.pickdsm.pick_server_spring.domain.teacher.service.ChangeNameService;
 import io.github.pickdsm.pick_server_spring.domain.teacher.service.ChangePasswordService;
 import io.github.pickdsm.pick_server_spring.domain.teacher.service.LoginTeacherService;
 import io.github.pickdsm.pick_server_spring.domain.teacher.service.QueryInformationService;
@@ -36,6 +38,7 @@ public class TeacherController {
 	private final QueryInformationService queryInformationService;
 	private final ChangePasswordService changePasswordService;
 	private final TokenRefreshService tokenRefreshService;
+	private final ChangeNameService changeNameService;
 
 	@PostMapping("/register")
 	public TokenResponse registerTeacher(@RequestBody @Valid RegisterRequest request) {
@@ -61,6 +64,12 @@ public class TeacherController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void changePassword(@RequestBody @Valid PasswordRequest request) {
 		changePasswordService.execute(request);
+	}
+
+	@PatchMapping("/name")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void changeName(@RequestBody @Valid NameRequest request) {
+		changeNameService.execute(request);
 	}
 
 }

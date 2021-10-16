@@ -51,4 +51,8 @@ public class Teacher {
 		this.password = password;
 	}
 
+	public void changeName(String name) {
+		this.name = name;
+	}
+
 }
