@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/teacher/register").permitAll()
 				.antMatchers(HttpMethod.POST, "/teacher/login").permitAll()
 				.antMatchers(HttpMethod.PUT, "/teacher/auth").permitAll()
+				.antMatchers(HttpMethod.GET, "/teacher/list").permitAll()
 				.anyRequest().authenticated()
 				.and().apply(new FilterConfig(jwtTokenProvider, globalExceptionFilter));
 	}
