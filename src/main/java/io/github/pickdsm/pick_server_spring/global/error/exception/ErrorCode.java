@@ -10,15 +10,17 @@ import lombok.Getter;
 @JsonFormat(shape = Shape.OBJECT)
 public enum ErrorCode {
 
-	ALREADY_EXIST_TEACHER(400, "Already exist teacher."),
-	INVALID_CODE(401, "Invalid code."),
-	CREDENTIALS_NOT_FOUND(401, "Credentials not found."),
-	EXPIRED_ACCESS_TOKEN(401, "Expired access token."),
-	INVALID_TOKEN(401, "Invalid token."),
-	WRONG_PASSWORD(401, "Wrong password."),
-	TEACHER_NOT_FOUND(404, "Teacher not found.");
+	EXPIRED_ACCESS_TOKEN(401, "SECURITY-401-1", "Expired access token."),
+	INVALID_TOKEN(401, "SECURITY-401-2", "Invalid token."),
+
+	ALREADY_EXIST_TEACHER(400, "TEACHER-400-1", "Already exist teacher."),
+	INVALID_CODE(401, "TEACHER-401-1", "Invalid code."),
+	CREDENTIALS_NOT_FOUND(401, "TEACHER-401-2", "Credentials not found."),
+	WRONG_PASSWORD(401, "TEACHER-401-3", "Wrong password."),
+	TEACHER_NOT_FOUND(404, "TEACHER-404-1", "Teacher not found.");
 
 	private final int status;
+	private final String code;
 	private final String message;
 
 }
