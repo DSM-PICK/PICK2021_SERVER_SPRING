@@ -47,4 +47,8 @@ public class Teacher {
 		this.location = location;
 	}
 
+	public void changePassword(String password) {
+		this.password = password;
+	}
+
 }
