@@ -51,4 +51,8 @@ public class Student {
 		this.location = location;
 	}
 
+	public void changeMajor(Major major) {
+		this.major = major;
+	}
+
 }
