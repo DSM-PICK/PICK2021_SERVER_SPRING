@@ -11,11 +11,13 @@ import javax.validation.Valid;
 import io.github.pickdsm.pick_server_spring.domain.schedule.domain.types.ScheduleName;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.ChangeDirectorRequest;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.ChangeRequest;
+import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.CreateDirectorRequest;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.CreateRequest;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.response.ScheduleListResponse;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.response.ScheduleNameResponse;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.ChangeDirectorService;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.ChangeScheduleService;
+import io.github.pickdsm.pick_server_spring.domain.schedule.service.CreateDirectorService;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.CreateScheduleService;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.QueryScheduleService;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.QuerySchedulesService;
@@ -41,6 +43,7 @@ public class ScheduleController {
 	private final QuerySchedulesService querySchedulesService;
 	private final QueryScheduleService queryScheduleService;
 	private final ChangeDirectorService changeDirectorService;
+	private final CreateDirectorService createDirectorService;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -70,6 +73,12 @@ public class ScheduleController {
 		return Stream.of(ScheduleName.values())
 				.map(Enum::name)
 				.collect(Collectors.toList());
+	}
+
+	@PostMapping("/director")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void createDirector(@RequestBody @Valid CreateDirectorRequest request) {
+		createDirectorService.execute(request);
 	}
 
 	@PatchMapping("/director")
