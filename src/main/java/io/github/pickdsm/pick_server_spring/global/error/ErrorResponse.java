@@ -15,7 +15,7 @@ public class ErrorResponse {
 	public String toString() {
 		return "{\n" +
 				"\t\"status\": " + status +
-				"\t\"code\": " + code +
+				",\t\"code\": " + code +
 				",\n\t\"message\": \"" + message + '\"' +
 				"\n}";
 	}
