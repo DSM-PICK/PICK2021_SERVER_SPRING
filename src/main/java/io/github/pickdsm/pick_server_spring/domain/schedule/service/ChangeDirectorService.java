@@ -11,6 +11,7 @@ import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.req
 import io.github.pickdsm.pick_server_spring.domain.teacher.domain.Teacher;
 import io.github.pickdsm.pick_server_spring.domain.teacher.domain.repository.TeacherRepository;
 import io.github.pickdsm.pick_server_spring.domain.teacher.exception.TeacherNotFoundException;
+import io.github.pickdsm.pick_server_spring.domain.teacher.facade.TeacherFacade;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ChangeDirectorService {
 
-	private final TeacherRepository teacherRepository;
+	private final TeacherFacade teacherFacade;
 	private final DirectorRepository directorRepository;
 	private final ScheduleRepository scheduleRepository;
 
@@ -28,8 +29,7 @@ public class ChangeDirectorService {
 		Schedule schedule = scheduleRepository
 				.findByDate(request.getDate())
 				.orElseThrow(ScheduleNotFoundException::new);
-		Teacher teacher = teacherRepository.findById(request.getTeacherId())
-				.orElseThrow(TeacherNotFoundException::new);
+		Teacher teacher = teacherFacade.getTeacherById(request.getTeacherId());
 		directorRepository.findByScheduleAndFloor(schedule.getId(), request.getFloor())
 				.orElseThrow(DirectorNotFoundException::new)
 				.changeTeacher(teacher);

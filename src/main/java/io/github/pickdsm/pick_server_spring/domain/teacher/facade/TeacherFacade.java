@@ -7,7 +7,6 @@ import io.github.pickdsm.pick_server_spring.global.security.AuthDetails;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 @Component

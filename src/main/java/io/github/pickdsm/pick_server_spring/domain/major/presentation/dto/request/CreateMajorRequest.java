@@ -19,8 +19,8 @@ public class CreateMajorRequest {
 	@NotEmpty(message = "head_gcn은 비어있으면 안됩니다.")
 	private String headGcn;
 
-	@NotEmpty(message = "location_name은 비어있으면 안됩니다.")
-	private String locationName;
+	@NotNull(message = "location_id는 Null이면 안됩니다.")
+	private Long locationId;
 
 	@NotEmpty(message = "teacher_id은 비어있으면 안됩니다.")
 	private String teacherId;
