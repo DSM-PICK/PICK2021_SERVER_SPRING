@@ -13,11 +13,6 @@ public class LocationFacade {
 
 	private final LocationRepository locationRepository;
 
-	public Location getLocationByName(String name) {
-		return locationRepository.findByName(name)
-				.orElseThrow(LocationNotFoundException::new);
-	}
-
 	public Location getLocationById(Long id) {
 		return locationRepository.findById(id)
 				.orElseThrow(LocationNotFoundException::new);
