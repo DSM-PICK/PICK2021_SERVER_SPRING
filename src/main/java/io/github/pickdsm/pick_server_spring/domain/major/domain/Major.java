@@ -1,5 +1,8 @@
 package io.github.pickdsm.pick_server_spring.domain.major.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -42,6 +46,9 @@ public class Major {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "location_id", unique = true)
 	private Location location;
+
+	@OneToMany(fetch = FetchType.LAZY)
+	private final Set<Student> members = new HashSet<>();
 
 	@Builder
 	public Major(String name, Student head, Teacher teacher, Location location) {

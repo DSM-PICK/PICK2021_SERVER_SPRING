@@ -27,6 +27,7 @@ public enum ErrorCode {
 	ALREADY_EXIST_SCHEDULE(409, "SCHEDULE-409-1", "Already exist schedule."),
 	ALREADY_EXIST_DIRECTOR(409, "SCHEDULE-409-2", "Already exist director."),
 
+	MAJOR_NOT_FOUND(404, "MAJOR-404-1", "Major not found."),
 	ALREADY_EXIST_MAJOR_NAME(409, "MAJOR-409-1", "Already exist major name."),
 
 	STUDENT_NOT_FOUND(404, "STUDENT-404-1", "Student not found."),
