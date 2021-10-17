@@ -34,7 +34,10 @@ public enum ErrorCode {
 	STUDENT_IS_HEAD(400, "STUDENT-400-1", "Student is head."),
 	STUDENT_NOT_FOUND(404, "STUDENT-404-1", "Student not found."),
 
-	LOCATION_NOT_FOUND(404, "LOCATION-404-1", "Location not found.");
+	LOCATION_NOT_FOUND(404, "LOCATION-404-1", "Location not found."),
+
+	ALREADY_EXIST_AFTER_SCHOOL_NAME(409, "AFTER_SCHOOL-409-1", "Already exist after school name."),
+	ALREADY_EXIST_DATE_AND_LOCATION(409, "AFTER_SCHOOL-409-2", "Already exist date and location.");
 
 	private final int status;
 	private final String code;
