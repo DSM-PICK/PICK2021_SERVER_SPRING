@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.AddMemberRequest;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.CreateMajorRequest;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.response.MajorInformationResponse;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.response.MajorResponse;
+import io.github.pickdsm.pick_server_spring.domain.major.service.AddMemberService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.CreateMajorService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.QueryMajorInformationService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.QueryMajorListService;
@@ -29,6 +31,7 @@ public class MajorController {
 	private final QueryMajorListService queryMajorListService;
 	private final CreateMajorService createMajorService;
 	private final QueryMajorInformationService queryMajorInformationService;
+	private final AddMemberService addMemberService;
 
 
 	@GetMapping("/list")
@@ -45,6 +48,12 @@ public class MajorController {
 	@GetMapping("/{major_id}")
 	public MajorInformationResponse queryMajorInformation(@PathVariable("major_id") Long majorId) {
 		return queryMajorInformationService.execute(majorId);
+	}
+
+	@PostMapping("/member")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void addMember(@RequestBody @Valid AddMemberRequest request) {
+		addMemberService.execute(request);
 	}
 
 }
