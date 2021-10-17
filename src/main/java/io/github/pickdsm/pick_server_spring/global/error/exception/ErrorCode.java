@@ -14,11 +14,15 @@ public enum ErrorCode {
 	EXPIRED_REFRESH_TOKEN(401, "SECURITY-401-2", "Expired refresh token"),
 	INVALID_TOKEN(401, "SECURITY-401-3", "Invalid token."),
 
+	INVALID_ENUM_VALUE(400, "GLOBAL-400-1", "Invalid enum value."),
+
 	ALREADY_EXIST_TEACHER(400, "TEACHER-400-1", "Already exist teacher."),
 	INVALID_CODE(401, "TEACHER-401-1", "Invalid code."),
 	CREDENTIALS_NOT_FOUND(401, "TEACHER-401-2", "Credentials not found."),
 	WRONG_PASSWORD(401, "TEACHER-401-3", "Wrong password."),
-	TEACHER_NOT_FOUND(404, "TEACHER-404-1", "Teacher not found.");
+	TEACHER_NOT_FOUND(404, "TEACHER-404-1", "Teacher not found."),
+
+	SCHEDULE_NOT_FOUND(404, "SCHEDULE-404-1", "Schedule not found.");
 
 	private final int status;
 	private final String code;
