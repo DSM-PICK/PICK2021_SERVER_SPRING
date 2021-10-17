@@ -8,9 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import io.github.pickdsm.pick_server_spring.domain.location.domain.Location;
 import io.github.pickdsm.pick_server_spring.domain.major.domain.Major;
+import io.github.pickdsm.pick_server_spring.domain.student.exception.StudentIsHeadException;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,6 +44,9 @@ public class Student {
 	@JoinColumn(name = "location_id")
 	private Location location;
 
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "head")
+	private Major HeadMajor;
+
 	@Builder
 	public Student(String name, String gcn, String state, Major major, Location location) {
 		this.name = name;
@@ -52,6 +57,8 @@ public class Student {
 	}
 
 	public void changeMajor(Major major) {
+		if(HeadMajor != null)
+			throw new StudentIsHeadException();
 		this.major = major;
 	}
 
