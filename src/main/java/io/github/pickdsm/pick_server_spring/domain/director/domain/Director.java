@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import io.github.pickdsm.pick_server_spring.domain.schedule.domain.Schedule;
 import io.github.pickdsm.pick_server_spring.domain.teacher.domain.Teacher;
@@ -17,6 +19,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(uniqueConstraints = @UniqueConstraint (columnNames = {"schedule_id", "floor"}))
 @Entity(name = "tbl_director")
 public class Director {
 
@@ -38,6 +41,10 @@ public class Director {
 	public Director(int floor, Schedule schedule, Teacher teacher) {
 		this.floor = floor;
 		this.schedule = schedule;
+		this.teacher = teacher;
+	}
+
+	public void changeTeacher(Teacher teacher) {
 		this.teacher = teacher;
 	}
 
