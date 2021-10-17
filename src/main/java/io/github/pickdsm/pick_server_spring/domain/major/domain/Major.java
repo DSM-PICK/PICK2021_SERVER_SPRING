@@ -56,6 +56,10 @@ public class Major {
 		this.head = head;
 	}
 
+	public void changeName(String name) {
+		this.name = name;
+	}
+
 	@Builder
 	public Major(String name, Student head, Teacher teacher, Location location) {
 		this.name = name;
