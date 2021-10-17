@@ -9,10 +9,12 @@ import java.util.stream.Stream;
 import javax.validation.Valid;
 
 import io.github.pickdsm.pick_server_spring.domain.schedule.domain.types.ScheduleName;
+import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.ChangeDirectorRequest;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.ChangeRequest;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.CreateRequest;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.response.ScheduleListResponse;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.response.ScheduleNameResponse;
+import io.github.pickdsm.pick_server_spring.domain.schedule.service.ChangeDirectorService;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.ChangeScheduleService;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.CreateScheduleService;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.QueryScheduleService;
@@ -38,6 +40,7 @@ public class ScheduleController {
 	private final ChangeScheduleService changeScheduleService;
 	private final QuerySchedulesService querySchedulesService;
 	private final QueryScheduleService queryScheduleService;
+	private final ChangeDirectorService changeDirectorService;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -67,6 +70,12 @@ public class ScheduleController {
 		return Stream.of(ScheduleName.values())
 				.map(Enum::name)
 				.collect(Collectors.toList());
+	}
+
+	@PatchMapping("/director")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void changeDirector(@RequestBody @Valid ChangeDirectorRequest request) {
+		changeDirectorService.execute(request);
 	}
 
 }
