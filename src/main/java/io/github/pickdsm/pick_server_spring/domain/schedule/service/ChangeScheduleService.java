@@ -7,6 +7,7 @@ import io.github.pickdsm.pick_server_spring.domain.schedule.domain.repository.Sc
 import io.github.pickdsm.pick_server_spring.domain.schedule.domain.types.ScheduleName;
 import io.github.pickdsm.pick_server_spring.domain.schedule.exception.ScheduleNotFoundException;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.ChangeRequest;
+import io.github.pickdsm.pick_server_spring.domain.schedule.utils.EnumUtils;
 import io.github.pickdsm.pick_server_spring.global.exception.InvalidEnumValueException;
 import lombok.RequiredArgsConstructor;
 
@@ -23,13 +24,8 @@ public class ChangeScheduleService {
 		Schedule schedule = scheduleRepository
 				.findByDate(request.getDate())
 				.orElseThrow(ScheduleNotFoundException::new);
-		ScheduleName name;
-
-		try {
-			name = ScheduleName.valueOf(request.getName());
-		} catch (IllegalArgumentException e) {
-			throw new InvalidEnumValueException();
-		}
+		ScheduleName name = EnumUtils
+				.convertToScheduleName(request.getName());
 
 		schedule.changeName(name);
 	}
