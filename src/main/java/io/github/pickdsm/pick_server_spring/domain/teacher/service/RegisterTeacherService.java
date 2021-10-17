@@ -42,7 +42,7 @@ public class RegisterTeacherService {
 				.password(
 						passwordEncoder.encode(request.getPassword())
 				)
-				.role(Role.DEFAULT)
+				.role(Role.ROLE_DEFAULT)
 				.build()
 		);
 
