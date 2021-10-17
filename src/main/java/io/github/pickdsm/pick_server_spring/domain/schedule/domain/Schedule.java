@@ -4,10 +4,13 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import io.github.pickdsm.pick_server_spring.domain.schedule.domain.types.ScheduleName;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,14 +26,19 @@ public class Schedule {
 	private Long id;
 
 	@Column(length = 20)
-	private String name;
+	@Enumerated(EnumType.STRING)
+	private ScheduleName name;
 
 	private LocalDate date;
 
 	@Builder
-	public Schedule(String name, LocalDate date) {
+	public Schedule(ScheduleName name, LocalDate date) {
 		this.name = name;
 		this.date = date;
+	}
+
+	public void changeName(ScheduleName name) {
+		this.name = name;
 	}
 
 }
