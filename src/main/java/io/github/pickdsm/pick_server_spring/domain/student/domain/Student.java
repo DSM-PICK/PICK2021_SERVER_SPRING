@@ -25,6 +25,9 @@ public class Student {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(length = 5)
+	private String name;
+
 	@Column(columnDefinition = "CHAR(4)", nullable = false)
 	private String gcn;
 
@@ -40,7 +43,8 @@ public class Student {
 	private Location location;
 
 	@Builder
-	public Student(String gcn, String state, Major major, Location location) {
+	public Student(String name, String gcn, String state, Major major, Location location) {
+		this.name = name;
 		this.gcn = gcn;
 		this.state = state;
 		this.major = major;
