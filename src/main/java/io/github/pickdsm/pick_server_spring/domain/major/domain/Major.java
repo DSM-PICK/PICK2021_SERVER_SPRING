@@ -31,7 +31,7 @@ public class Major {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "head_id")
-	private Student student;
+	private Student head;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "teacher_id")
@@ -42,9 +42,9 @@ public class Major {
 	private Location location;
 
 	@Builder
-	public Major(String name, Student student, Teacher teacher, Location location) {
+	public Major(String name, Student head, Teacher teacher, Location location) {
 		this.name = name;
-		this.student = student;
+		this.head = head;
 		this.teacher = teacher;
 		this.location = location;
 	}
