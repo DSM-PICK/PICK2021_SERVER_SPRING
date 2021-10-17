@@ -6,12 +6,14 @@ import javax.validation.Valid;
 
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.AddMemberRequest;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.ChangeHeadRequest;
+import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.ChangeNameRequest;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.CreateMajorRequest;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.RemoveMemberRequest;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.response.MajorInformationResponse;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.response.MajorResponse;
 import io.github.pickdsm.pick_server_spring.domain.major.service.AddMemberService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.ChangeHeadService;
+import io.github.pickdsm.pick_server_spring.domain.major.service.ChangeMajorNameService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.CreateMajorService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.QueryMajorInformationService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.QueryMajorListService;
@@ -42,6 +44,7 @@ public class MajorController {
 	private final RemoveMemberService removeMemberService;
 	private final ChangeHeadService changeHeadService;
 	private final RemoveMajorService removeMajorService;
+	private final ChangeMajorNameService changeMajorNameService;
 
 	@GetMapping("/list")
 	public List<MajorResponse> queryMajorList() {
@@ -81,6 +84,13 @@ public class MajorController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void removeMajor(@PathVariable("major_id") Long majorId) {
 		removeMajorService.execute(majorId);
+	}
+
+	@PatchMapping("/{major_id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void changeMajorName(@PathVariable("major_id") Long majorId,
+			@RequestBody @Valid ChangeNameRequest request) {
+		changeMajorNameService.execute(majorId, request);
 	}
 
 }
