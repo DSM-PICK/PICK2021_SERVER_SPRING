@@ -15,6 +15,7 @@ import io.github.pickdsm.pick_server_spring.domain.major.service.ChangeHeadServi
 import io.github.pickdsm.pick_server_spring.domain.major.service.CreateMajorService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.QueryMajorInformationService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.QueryMajorListService;
+import io.github.pickdsm.pick_server_spring.domain.major.service.RemoveMajorService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.RemoveMemberService;
 import lombok.RequiredArgsConstructor;
 
@@ -40,6 +41,7 @@ public class MajorController {
 	private final AddMemberService addMemberService;
 	private final RemoveMemberService removeMemberService;
 	private final ChangeHeadService changeHeadService;
+	private final RemoveMajorService removeMajorService;
 
 	@GetMapping("/list")
 	public List<MajorResponse> queryMajorList() {
@@ -73,6 +75,12 @@ public class MajorController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void changeHead(@RequestBody @Valid ChangeHeadRequest request) {
 		changeHeadService.execute(request);
+	}
+
+	@DeleteMapping("/{major_id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void removeMajor(@PathVariable("major_id") Long majorId) {
+		removeMajorService.execute(majorId);
 	}
 
 }

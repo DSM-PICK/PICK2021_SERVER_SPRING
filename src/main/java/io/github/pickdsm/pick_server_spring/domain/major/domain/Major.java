@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import io.github.pickdsm.pick_server_spring.domain.location.domain.Location;
 import io.github.pickdsm.pick_server_spring.domain.major.exception.NotMajorMemberException;
