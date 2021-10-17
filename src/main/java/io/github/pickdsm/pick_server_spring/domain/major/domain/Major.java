@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import io.github.pickdsm.pick_server_spring.domain.location.domain.Location;
 import io.github.pickdsm.pick_server_spring.domain.student.domain.Student;
@@ -26,11 +28,11 @@ public class Major {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(length = 20)
+	@Column(length = 20, unique = true)
 	private String name;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "head_id")
+	@JoinColumn(name = "head_id", unique = true)
 	private Student head;
 
 	@OneToOne(fetch = FetchType.LAZY)
@@ -38,7 +40,7 @@ public class Major {
 	private Teacher teacher;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "location_id")
+	@JoinColumn(name = "location_id", unique = true)
 	private Location location;
 
 	@Builder

@@ -2,6 +2,7 @@ package io.github.pickdsm.pick_server_spring.domain.teacher.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -30,8 +31,8 @@ public class Teacher {
 	@Column(columnDefinition = "CHAR(60)")
 	private String password;
 
-	@Column(length = 7)
-	@Enumerated
+	@Column(length = 12)
+	@Enumerated(EnumType.STRING)
 	private Role role;
 
 	@OneToOne(fetch = FetchType.LAZY)
