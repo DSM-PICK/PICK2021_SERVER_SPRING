@@ -5,13 +5,16 @@ import java.util.List;
 import javax.validation.Valid;
 
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.CreateMajorRequest;
+import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.response.MajorInformationResponse;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.response.MajorResponse;
 import io.github.pickdsm.pick_server_spring.domain.major.service.CreateMajorService;
+import io.github.pickdsm.pick_server_spring.domain.major.service.QueryMajorInformationService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.QueryMajorListService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,7 @@ public class MajorController {
 
 	private final QueryMajorListService queryMajorListService;
 	private final CreateMajorService createMajorService;
+	private final QueryMajorInformationService queryMajorInformationService;
 
 
 	@GetMapping("/list")
@@ -36,6 +40,11 @@ public class MajorController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createMajor(@RequestBody @Valid CreateMajorRequest request) {
 		createMajorService.execute(request);
+	}
+
+	@GetMapping("/{major_id}")
+	public MajorInformationResponse queryMajorInformation(@PathVariable("major_id") Long majorId) {
+		return queryMajorInformationService.execute(majorId);
 	}
 
 }
