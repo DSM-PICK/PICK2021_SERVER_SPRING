@@ -3,9 +3,12 @@ package io.github.pickdsm.pick_server_spring.domain.schedule.presentation;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.validation.Valid;
 
+import io.github.pickdsm.pick_server_spring.domain.schedule.domain.types.ScheduleName;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.ChangeRequest;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.CreateRequest;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.response.ScheduleListResponse;
@@ -57,6 +60,13 @@ public class ScheduleController {
 	public ScheduleNameResponse querySchedule(@PathVariable("date") String date) {
 		return queryScheduleService
 				.execute(LocalDate.parse(date, DateTimeFormatter.ISO_DATE));
+	}
+
+	@GetMapping("/name")
+	public List<String> queryScheduleName() {
+		return Stream.of(ScheduleName.values())
+				.map(Enum::name)
+				.collect(Collectors.toList());
 	}
 
 }
