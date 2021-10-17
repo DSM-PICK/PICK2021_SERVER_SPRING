@@ -33,7 +33,7 @@ public class QuerySchedulesService {
 	}
 
 	private List<Director> queryDirector(Schedule schedule) {
-		return directorRepository.findBySchedule(schedule)
+		return directorRepository.findBySchedule(schedule.getId())
 				.parallelStream()
 				.map(director -> {
 					Teacher teacher = director.getTeacher();
