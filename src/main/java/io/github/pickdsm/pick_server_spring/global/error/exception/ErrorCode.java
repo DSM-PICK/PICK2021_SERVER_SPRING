@@ -22,7 +22,8 @@ public enum ErrorCode {
 	WRONG_PASSWORD(401, "TEACHER-401-3", "Wrong password."),
 	TEACHER_NOT_FOUND(404, "TEACHER-404-1", "Teacher not found."),
 
-	SCHEDULE_NOT_FOUND(404, "SCHEDULE-404-1", "Schedule not found.");
+	SCHEDULE_NOT_FOUND(404, "SCHEDULE-404-1", "Schedule not found."),
+	ALREADY_EXIST_SCHEDULE(409, "SCHEDULE-409-1", "Already exist schedule.");
 
 	private final int status;
 	private final String code;
