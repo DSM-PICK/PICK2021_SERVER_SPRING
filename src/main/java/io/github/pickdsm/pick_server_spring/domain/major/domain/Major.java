@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import io.github.pickdsm.pick_server_spring.domain.location.domain.Location;
+import io.github.pickdsm.pick_server_spring.domain.major.exception.NotMajorMemberException;
 import io.github.pickdsm.pick_server_spring.domain.student.domain.Student;
 import io.github.pickdsm.pick_server_spring.domain.teacher.domain.Teacher;
 import lombok.AccessLevel;
@@ -49,6 +50,13 @@ public class Major {
 
 	@OneToMany(fetch = FetchType.LAZY)
 	private final Set<Student> members = new HashSet<>();
+
+	public void changeHead(Student head) {
+		if(head.getMajor() == null ||
+				!head.getMajor().getId().equals(this.id))
+			throw new NotMajorMemberException();
+		this.head = head;
+	}
 
 	@Builder
 	public Major(String name, Student head, Teacher teacher, Location location) {

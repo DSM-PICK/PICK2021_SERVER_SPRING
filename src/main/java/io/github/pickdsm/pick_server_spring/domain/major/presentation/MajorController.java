@@ -5,11 +5,13 @@ import java.util.List;
 import javax.validation.Valid;
 
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.AddMemberRequest;
+import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.ChangeHeadRequest;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.CreateMajorRequest;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.RemoveMemberRequest;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.response.MajorInformationResponse;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.response.MajorResponse;
 import io.github.pickdsm.pick_server_spring.domain.major.service.AddMemberService;
+import io.github.pickdsm.pick_server_spring.domain.major.service.ChangeHeadService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.CreateMajorService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.QueryMajorInformationService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.QueryMajorListService;
@@ -19,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +39,7 @@ public class MajorController {
 	private final QueryMajorInformationService queryMajorInformationService;
 	private final AddMemberService addMemberService;
 	private final RemoveMemberService removeMemberService;
-
+	private final ChangeHeadService changeHeadService;
 
 	@GetMapping("/list")
 	public List<MajorResponse> queryMajorList() {
@@ -64,6 +67,12 @@ public class MajorController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void removeMember(@RequestBody @Valid RemoveMemberRequest request) {
 		removeMemberService.execute(request);
+	}
+
+	@PatchMapping("/head")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void changeHead(@RequestBody @Valid ChangeHeadRequest request) {
+		changeHeadService.execute(request);
 	}
 
 }
