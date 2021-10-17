@@ -62,4 +62,8 @@ public class Student {
 		this.major = major;
 	}
 
+	public void setMajorNull() {
+		this.major = null;
+	}
+
 }
