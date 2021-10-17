@@ -24,7 +24,8 @@ public enum ErrorCode {
 
 	SCHEDULE_NOT_FOUND(404, "SCHEDULE-404-1", "Schedule not found."),
 	DIRECTOR_NOT_FOUND(404, "SCHEDULE-404-2", "Director not found."),
-	ALREADY_EXIST_SCHEDULE(409, "SCHEDULE-409-1", "Already exist schedule.");
+	ALREADY_EXIST_SCHEDULE(409, "SCHEDULE-409-1", "Already exist schedule."),
+	ALREADY_EXIST_DIRECTOR(409, "SCHEDULE-409-2", "Already exist director.");
 
 	private final int status;
 	private final String code;

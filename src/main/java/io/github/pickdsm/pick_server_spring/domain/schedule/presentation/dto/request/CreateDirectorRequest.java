@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ChangeDirectorRequest {
+public class CreateDirectorRequest {
 
 	@Min(value = 3, message = "floor는 3이상의 값이어야 합니다.")
 	@Max(value = 5, message = "floor는 5이하의 값이어야 합니다.")
