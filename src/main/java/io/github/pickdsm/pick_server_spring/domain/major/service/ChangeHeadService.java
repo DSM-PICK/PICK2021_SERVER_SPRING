@@ -9,6 +9,7 @@ import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.reques
 import io.github.pickdsm.pick_server_spring.domain.student.domain.Student;
 import io.github.pickdsm.pick_server_spring.domain.student.domain.repository.StudentRepository;
 import io.github.pickdsm.pick_server_spring.domain.student.exception.StudentNotFoundException;
+import io.github.pickdsm.pick_server_spring.domain.student.facade.StudentFacade;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -18,14 +19,14 @@ import org.springframework.stereotype.Service;
 public class ChangeHeadService {
 
 	private final MajorRepository majorRepository;
-	private final StudentRepository studentRepository;
+	private final StudentFacade studentFacade;
 
 	@Transactional
 	public void execute(ChangeHeadRequest request) {
 		Major major = majorRepository.findById(request.getMajorId())
 				.orElseThrow(MajorNotFoundException::new);
-		Student student = studentRepository.findById(request.getStudentId())
-				.orElseThrow(StudentNotFoundException::new);
+		Student student = studentFacade
+				.getStudentById(request.getStudentId());
 		major.changeHead(student);
 	}
 
