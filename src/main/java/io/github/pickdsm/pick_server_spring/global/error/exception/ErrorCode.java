@@ -36,6 +36,7 @@ public enum ErrorCode {
 
 	LOCATION_NOT_FOUND(404, "LOCATION-404-1", "Location not found."),
 
+	AFTER_SCHOOL_NOT_FOUND(404, "AFTER_SCHOOL-404-1", "After school not found."),
 	ALREADY_EXIST_AFTER_SCHOOL_NAME(409, "AFTER_SCHOOL-409-1", "Already exist after school name."),
 	ALREADY_EXIST_DATE_AND_LOCATION(409, "AFTER_SCHOOL-409-2", "Already exist date and location.");
 
