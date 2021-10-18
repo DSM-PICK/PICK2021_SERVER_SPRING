@@ -2,6 +2,8 @@ package io.github.pickdsm.pick_server_spring.domain.after_school.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,7 +34,8 @@ public class AfterSchool {
 	@Column(length = 20, unique = true)
 	private String name;
 
-	@Column(columnDefinition = "CHAR(3)")
+	@Column(length = 3)
+	@Enumerated(EnumType.STRING)
 	private Day day;
 
 	@OneToOne(fetch = FetchType.LAZY)
@@ -42,6 +45,22 @@ public class AfterSchool {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "location_id")
 	private Location location;
+
+	public void changeName(String name) {
+		this.name = name;
+	}
+
+	public void changeDay(Day day) {
+		this.day = day;
+	}
+
+	public void changeTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+
+	public void changeLocation(Location location) {
+		this.location = location;
+	}
 
 	@Builder
 	public AfterSchool(String name, Day day, Teacher teacher, Location location) {
