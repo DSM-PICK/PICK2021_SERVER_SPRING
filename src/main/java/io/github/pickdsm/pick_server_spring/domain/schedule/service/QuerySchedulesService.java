@@ -3,6 +3,8 @@ package io.github.pickdsm.pick_server_spring.domain.schedule.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import io.github.pickdsm.pick_server_spring.domain.director.domain.repository.DirectorRepository;
 import io.github.pickdsm.pick_server_spring.domain.schedule.domain.Schedule;
 import io.github.pickdsm.pick_server_spring.domain.schedule.domain.repository.ScheduleRepository;
@@ -22,11 +24,12 @@ public class QuerySchedulesService {
 
 	public List<ScheduleListResponse> execute(int month) {
 		return scheduleRepository.findByMonth(month)
-				.parallelStream()
+				.stream()
 				.map(schedule ->
 						new ScheduleListResponse(
 								schedule.getDate(),
 								schedule.getName().name(),
+								schedule.getPeriod(),
 								queryDirector(schedule)
 						)
 				).collect(Collectors.toList());

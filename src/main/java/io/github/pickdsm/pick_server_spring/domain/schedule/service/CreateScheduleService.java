@@ -26,6 +26,7 @@ public class CreateScheduleService {
 				Schedule.builder()
 				.date(request.getDate())
 				.name(name)
+				.period(3)
 				.build()
 		);
 	}

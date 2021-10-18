@@ -12,6 +12,7 @@ public class ScheduleListResponse {
 
 	private final LocalDate date;
 	private final String name;
+	private final int period;
 	private final List<Director> director;
 
 	@Getter
