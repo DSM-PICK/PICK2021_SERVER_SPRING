@@ -66,9 +66,10 @@ public class ScheduleController {
 		changeSchedulePeriodService.execute(request);
 	}
 
-	@GetMapping("/list/{month}")
-	public List<ScheduleListResponse> querySchedules(@PathVariable("month") int month) {
-		return querySchedulesService.execute(month);
+	@GetMapping("/list/{year}/{month}")
+	public List<ScheduleListResponse> querySchedules(@PathVariable("year") int year,
+			@PathVariable("month") int month) {
+		return querySchedulesService.execute(year, month);
 	}
 
 	@GetMapping("/{date}")
