@@ -9,10 +9,12 @@ import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto
 import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.response.AfterSchoolResponse;
 import io.github.pickdsm.pick_server_spring.domain.after_school.service.CreateAfterSchoolService;
 import io.github.pickdsm.pick_server_spring.domain.after_school.service.QueryAfterSchoolService;
+import io.github.pickdsm.pick_server_spring.domain.after_school.service.RemoveAfterSchoolService;
 import io.github.pickdsm.pick_server_spring.domain.after_school.service.UpdateAfterSchoolService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +32,7 @@ public class AfterSchoolController {
 	private final QueryAfterSchoolService queryAfterSchoolService;
 	private final CreateAfterSchoolService createAfterSchoolService;
 	private final UpdateAfterSchoolService updateAfterSchoolService;
+	private final RemoveAfterSchoolService removeAfterSchoolService;
 
 	@GetMapping("/list")
 	public List<AfterSchoolResponse> queryAfterSchool() {
@@ -47,6 +50,12 @@ public class AfterSchoolController {
 	public void updateAfterSchool(@PathVariable("after-school_id") Long afterSchoolId,
 			@RequestBody @Valid UpdateAfterSchoolRequest request) {
 		updateAfterSchoolService.execute(afterSchoolId, request);
+	}
+
+	@DeleteMapping("/{after-school_id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void removeAfterSchool(@PathVariable("after-school_id") Long afterSchoolId) {
+		removeAfterSchoolService.execute(afterSchoolId);
 	}
 
 }
