@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ChangeRequest {
+public class ChangeNameRequest {
 
 	@NotNull(message = "date는 Null이면 안됩니다.")
 	private LocalDate date;

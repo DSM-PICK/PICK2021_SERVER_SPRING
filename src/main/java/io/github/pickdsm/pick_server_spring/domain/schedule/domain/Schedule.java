@@ -31,14 +31,21 @@ public class Schedule {
 
 	private LocalDate date;
 
+	private int period;
+
 	@Builder
-	public Schedule(ScheduleName name, LocalDate date) {
+	public Schedule(ScheduleName name, LocalDate date, int period) {
 		this.name = name;
 		this.date = date;
+		this.period = period;
 	}
 
 	public void changeName(ScheduleName name) {
 		this.name = name;
+	}
+
+	public void changePeriod(int period) {
+		this.period = period;
 	}
 
 }
