@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.AddMemberRequest;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.ChangeHeadRequest;
+import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.ChangeLocationRequest;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.ChangeNameRequest;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.CreateMajorRequest;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.RemoveMemberRequest;
@@ -13,6 +14,7 @@ import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.respon
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.response.MajorResponse;
 import io.github.pickdsm.pick_server_spring.domain.major.service.AddMemberService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.ChangeHeadService;
+import io.github.pickdsm.pick_server_spring.domain.major.service.ChangeMajorLocationService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.ChangeMajorNameService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.CreateMajorService;
 import io.github.pickdsm.pick_server_spring.domain.major.service.QueryMajorInformationService;
@@ -45,6 +47,7 @@ public class MajorController {
 	private final ChangeHeadService changeHeadService;
 	private final RemoveMajorService removeMajorService;
 	private final ChangeMajorNameService changeMajorNameService;
+	private final ChangeMajorLocationService changeMajorLocationService;
 
 	@GetMapping("/list")
 	public List<MajorResponse> queryMajorList() {
@@ -91,6 +94,13 @@ public class MajorController {
 	public void changeMajorName(@PathVariable("major_id") Long majorId,
 			@RequestBody @Valid ChangeNameRequest request) {
 		changeMajorNameService.execute(majorId, request);
+	}
+
+	@PatchMapping("/{major_id}/location")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void changeMajorLocation(@PathVariable("major_id") Long majorId,
+			@RequestBody @Valid ChangeLocationRequest request) {
+		changeMajorLocationService.execute(majorId, request);
 	}
 
 }

@@ -60,6 +60,10 @@ public class Major {
 		this.name = name;
 	}
 
+	public void changeLocation(Location location) {
+		this.location = location;
+	}
+
 	@Builder
 	public Major(String name, Student head, Teacher teacher, Location location) {
 		this.name = name;
