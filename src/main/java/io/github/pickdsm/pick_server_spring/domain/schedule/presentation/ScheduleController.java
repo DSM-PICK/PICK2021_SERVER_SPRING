@@ -11,12 +11,14 @@ import javax.validation.Valid;
 import io.github.pickdsm.pick_server_spring.domain.schedule.domain.types.ScheduleName;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.ChangeDirectorRequest;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.ChangeNameRequest;
+import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.ChangePeriodRequest;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.CreateDirectorRequest;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.CreateRequest;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.response.ScheduleListResponse;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.response.ScheduleNameResponse;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.ChangeDirectorService;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.ChangeScheduleNameService;
+import io.github.pickdsm.pick_server_spring.domain.schedule.service.ChangeSchedulePeriodService;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.CreateDirectorService;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.CreateScheduleService;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.QueryScheduleService;
@@ -40,6 +42,7 @@ public class ScheduleController {
 
 	private final CreateScheduleService createScheduleService;
 	private final ChangeScheduleNameService changeScheduleNameService;
+	private final ChangeSchedulePeriodService changeSchedulePeriodService;
 	private final QuerySchedulesService querySchedulesService;
 	private final QueryScheduleService queryScheduleService;
 	private final ChangeDirectorService changeDirectorService;
@@ -55,6 +58,12 @@ public class ScheduleController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void changeScheduleName(@RequestBody @Valid ChangeNameRequest request) {
 		changeScheduleNameService.execute(request);
+	}
+
+	@PatchMapping("/period")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void changeSchedulePeriod(@RequestBody @Valid ChangePeriodRequest request) {
+		changeSchedulePeriodService.execute(request);
 	}
 
 	@GetMapping("/list/{month}")
