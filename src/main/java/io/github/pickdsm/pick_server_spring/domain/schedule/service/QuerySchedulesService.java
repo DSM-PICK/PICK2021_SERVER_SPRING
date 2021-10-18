@@ -22,8 +22,8 @@ public class QuerySchedulesService {
 	private final ScheduleRepository scheduleRepository;
 	private final DirectorRepository directorRepository;
 
-	public List<ScheduleListResponse> execute(int month) {
-		return scheduleRepository.findByMonth(month)
+	public List<ScheduleListResponse> execute(int year, int month) {
+		return scheduleRepository.findByYearAndMonth(year, month)
 				.stream()
 				.map(schedule ->
 						new ScheduleListResponse(
