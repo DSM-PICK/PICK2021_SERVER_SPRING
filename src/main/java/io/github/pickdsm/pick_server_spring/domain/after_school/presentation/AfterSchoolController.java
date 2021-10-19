@@ -5,9 +5,11 @@ import java.util.List;
 import javax.validation.Valid;
 
 import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.request.CreateAfterSchoolRequest;
+import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.request.CreateAfterSchoolStudentRequest;
 import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.request.UpdateAfterSchoolRequest;
 import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.response.AfterSchoolResponse;
 import io.github.pickdsm.pick_server_spring.domain.after_school.service.CreateAfterSchoolService;
+import io.github.pickdsm.pick_server_spring.domain.after_school.service.CreateAfterSchoolStudentService;
 import io.github.pickdsm.pick_server_spring.domain.after_school.service.QueryAfterSchoolService;
 import io.github.pickdsm.pick_server_spring.domain.after_school.service.RemoveAfterSchoolService;
 import io.github.pickdsm.pick_server_spring.domain.after_school.service.UpdateAfterSchoolService;
@@ -33,6 +35,7 @@ public class AfterSchoolController {
 	private final CreateAfterSchoolService createAfterSchoolService;
 	private final UpdateAfterSchoolService updateAfterSchoolService;
 	private final RemoveAfterSchoolService removeAfterSchoolService;
+	private final CreateAfterSchoolStudentService createAfterSchoolStudentService;
 
 	@GetMapping("/list")
 	public List<AfterSchoolResponse> queryAfterSchool() {
@@ -56,6 +59,13 @@ public class AfterSchoolController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void removeAfterSchool(@PathVariable("after-school_id") Long afterSchoolId) {
 		removeAfterSchoolService.execute(afterSchoolId);
+	}
+
+	@PostMapping("/{after-school_id}/student")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void createAfterSchoolStudent(@PathVariable("after-school_id") Long afterSchoolId,
+			@RequestBody @Valid CreateAfterSchoolStudentRequest request) {
+		createAfterSchoolStudentService.execute(afterSchoolId, request);
 	}
 
 }
