@@ -4,6 +4,7 @@ import io.github.pickdsm.pick_server_spring.domain.affiliated_after_school.domai
 import io.github.pickdsm.pick_server_spring.domain.affiliated_after_school.domain.repository.AffiliatedAfterSchoolRepository;
 import io.github.pickdsm.pick_server_spring.domain.affiliated_after_school.exception.AlreadyExistStudentException;
 import io.github.pickdsm.pick_server_spring.domain.after_school.domain.AfterSchool;
+import io.github.pickdsm.pick_server_spring.domain.after_school.exception.AffiliatedNotFoundException;
 import io.github.pickdsm.pick_server_spring.domain.student.domain.Student;
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +27,19 @@ public class AffiliatedAfterSchoolFacade {
 				.afterSchool(afterSchool)
 				.student(student)
 				.build()
+		);
+	}
+
+	public void removeAffiliated(AfterSchool afterSchool, Student student) {
+		if(affiliatedAfterSchoolRepository
+				.findByAfterSchoolAndStudent(afterSchool.getId(),
+						student.getId())
+				.isEmpty())
+			throw new AffiliatedNotFoundException();
+		affiliatedAfterSchoolRepository.delete(
+				affiliatedAfterSchoolRepository
+						.findByAfterSchoolAndStudent(afterSchool.getId(),
+								student.getId()).get()
 		);
 	}
 
