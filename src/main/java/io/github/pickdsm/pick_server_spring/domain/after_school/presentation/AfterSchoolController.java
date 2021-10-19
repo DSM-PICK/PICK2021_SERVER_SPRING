@@ -6,12 +6,14 @@ import javax.validation.Valid;
 
 import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.request.CreateAfterSchoolRequest;
 import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.request.CreateAfterSchoolStudentRequest;
+import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.request.RemoveAfterSchoolStudentRequest;
 import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.request.UpdateAfterSchoolRequest;
 import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.response.AfterSchoolResponse;
 import io.github.pickdsm.pick_server_spring.domain.after_school.service.CreateAfterSchoolService;
 import io.github.pickdsm.pick_server_spring.domain.after_school.service.CreateAfterSchoolStudentService;
 import io.github.pickdsm.pick_server_spring.domain.after_school.service.QueryAfterSchoolService;
 import io.github.pickdsm.pick_server_spring.domain.after_school.service.RemoveAfterSchoolService;
+import io.github.pickdsm.pick_server_spring.domain.after_school.service.RemoveAfterSchoolStudentService;
 import io.github.pickdsm.pick_server_spring.domain.after_school.service.UpdateAfterSchoolService;
 import lombok.RequiredArgsConstructor;
 
@@ -36,6 +38,7 @@ public class AfterSchoolController {
 	private final UpdateAfterSchoolService updateAfterSchoolService;
 	private final RemoveAfterSchoolService removeAfterSchoolService;
 	private final CreateAfterSchoolStudentService createAfterSchoolStudentService;
+	private final RemoveAfterSchoolStudentService removeAfterSchoolStudentService;
 
 	@GetMapping("/list")
 	public List<AfterSchoolResponse> queryAfterSchool() {
@@ -66,6 +69,13 @@ public class AfterSchoolController {
 	public void createAfterSchoolStudent(@PathVariable("after-school_id") Long afterSchoolId,
 			@RequestBody @Valid CreateAfterSchoolStudentRequest request) {
 		createAfterSchoolStudentService.execute(afterSchoolId, request);
+	}
+
+	@DeleteMapping("/{after-school_id}/student")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void removeAfterSchoolStudent(@PathVariable("after-school_id") Long afterSchoolId,
+			@RequestBody @Valid RemoveAfterSchoolStudentRequest request) {
+		removeAfterSchoolStudentService.execute(afterSchoolId, request);
 	}
 
 }
