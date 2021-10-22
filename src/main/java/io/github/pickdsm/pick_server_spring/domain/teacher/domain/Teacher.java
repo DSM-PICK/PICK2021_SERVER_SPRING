@@ -39,6 +39,8 @@ public class Teacher {
 	@JoinColumn(name = "location_id")
 	private Location location;
 
+	private int year;
+
 	@Builder
 	public Teacher(String id, String name, String password, Role role, Location location) {
 		this.id = id;
