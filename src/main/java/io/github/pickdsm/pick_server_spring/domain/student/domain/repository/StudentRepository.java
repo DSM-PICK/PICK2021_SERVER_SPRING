@@ -12,4 +12,6 @@ public interface StudentRepository extends CrudRepository<Student, Long> {
 	Optional<Student> findByNameAndGcn(String name, String gcn);
 	@Query("select s from tbl_student s where s.major.id = :majorId")
 	List<Student> findByMajor(Long majorId);
+	@Query("select s from tbl_student s where s.name like %:name%")
+	List<Student> findByNameLike(String name);
 }
