@@ -19,7 +19,7 @@ public class MajorInformationResponse {
 	@Getter
 	@AllArgsConstructor
 	public static class Member {
-		private final Long studentId;
+		private final String studentId;
 		private final String studentName;
 		private final String gcn;
 	}
