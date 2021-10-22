@@ -10,12 +10,14 @@ import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.requ
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.request.RegisterRequest;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.request.TokenRequest;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.response.InformationResponse;
+import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.response.StudentResponse;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.response.TeacherResponse;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.response.TokenResponse;
 import io.github.pickdsm.pick_server_spring.domain.teacher.service.ChangeNameService;
 import io.github.pickdsm.pick_server_spring.domain.teacher.service.ChangePasswordService;
 import io.github.pickdsm.pick_server_spring.domain.teacher.service.LoginTeacherService;
 import io.github.pickdsm.pick_server_spring.domain.teacher.service.QueryInformationService;
+import io.github.pickdsm.pick_server_spring.domain.teacher.service.QueryStudentService;
 import io.github.pickdsm.pick_server_spring.domain.teacher.service.QueryTeacherListService;
 import io.github.pickdsm.pick_server_spring.domain.teacher.service.RegisterTeacherService;
 import io.github.pickdsm.pick_server_spring.domain.teacher.service.TokenRefreshService;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,6 +47,7 @@ public class TeacherController {
 	private final TokenRefreshService tokenRefreshService;
 	private final ChangeNameService changeNameService;
 	private final QueryTeacherListService queryTeacherListService;
+	private final QueryStudentService queryStudentService;
 
 	@PostMapping("/register")
 	public TokenResponse registerTeacher(@RequestBody @Valid RegisterRequest request) {
@@ -80,6 +84,11 @@ public class TeacherController {
 	@GetMapping("/list")
 	public List<TeacherResponse> queryTeacherList() {
 		return queryTeacherListService.execute();
+	}
+
+	@GetMapping("/student")
+	public List<StudentResponse> queryStudent(@RequestParam("name") String name) {
+		return queryStudentService.execute(name);
 	}
 
 }
