@@ -13,7 +13,7 @@ public class StudentFacade {
 
 	private final StudentRepository studentRepository;
 
-	public Student getStudentById(Long id) {
+	public Student getStudentById(String id) {
 		return studentRepository.findById(id)
 				.orElseThrow(StudentNotFoundException::new);
 	}
