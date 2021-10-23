@@ -9,8 +9,6 @@ import io.github.pickdsm.pick_server_spring.domain.schedule.exception.DirectorNo
 import io.github.pickdsm.pick_server_spring.domain.schedule.exception.ScheduleNotFoundException;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.ChangeDirectorRequest;
 import io.github.pickdsm.pick_server_spring.domain.teacher.domain.Teacher;
-import io.github.pickdsm.pick_server_spring.domain.teacher.domain.repository.TeacherRepository;
-import io.github.pickdsm.pick_server_spring.domain.teacher.exception.TeacherNotFoundException;
 import io.github.pickdsm.pick_server_spring.domain.teacher.facade.TeacherFacade;
 import lombok.RequiredArgsConstructor;
 
@@ -28,10 +26,10 @@ public class ChangeDirectorService {
 	public void execute(ChangeDirectorRequest request) {
 		Schedule schedule = scheduleRepository
 				.findByDate(request.getDate())
-				.orElseThrow(ScheduleNotFoundException::new);
+				.orElseThrow(() -> ScheduleNotFoundException.EXCEPTION);
 		Teacher teacher = teacherFacade.getTeacherById(request.getTeacherId());
 		directorRepository.findByScheduleAndFloor(schedule.getId(), request.getFloor())
-				.orElseThrow(DirectorNotFoundException::new)
+				.orElseThrow(() -> DirectorNotFoundException.EXCEPTION)
 				.changeTeacher(teacher);
 
 	}

@@ -18,7 +18,7 @@ public class QueryScheduleService {
 	public ScheduleNameResponse execute(LocalDate date) {
 		return new ScheduleNameResponse(
 				scheduleRepository.findByDate(date)
-						.orElseThrow(ScheduleNotFoundException::new)
+						.orElseThrow(() -> ScheduleNotFoundException.EXCEPTION)
 						.getName().name()
 		);
 	}

@@ -34,7 +34,7 @@ public class CreateMajorService {
 	@Transactional
 	public void execute(CreateMajorRequest request) {
 		majorRepository.findByName(request.getMajorName())
-				.ifPresent(major -> {throw new AlreadyExistMajorNameException();});
+				.ifPresent(major -> {throw AlreadyExistMajorNameException.EXCEPTION;});
 		Student head = studentFacade
 				.getStudentByNameAndGcn(request.getHeadName(), request.getHeadGcn());
 		Location location = locationFacade

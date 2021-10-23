@@ -5,7 +5,10 @@ import io.github.pickdsm.pick_server_spring.global.error.exception.PickException
 
 public class WrongPasswordException extends PickException {
 
-	public WrongPasswordException() {
+	public static final PickException EXCEPTION
+			= new WrongPasswordException();
+
+	private WrongPasswordException() {
 		super(ErrorCode.WRONG_PASSWORD);
 	}
 

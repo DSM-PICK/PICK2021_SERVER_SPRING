@@ -20,7 +20,7 @@ public class ChangeSchedulePeriodService {
 	public void execute(ChangePeriodRequest request) {
 		Schedule schedule = scheduleRepository
 				.findByDate(request.getDate())
-				.orElseThrow(ScheduleNotFoundException::new);
+				.orElseThrow(() -> ScheduleNotFoundException.EXCEPTION);
 
 		schedule.changePeriod(request.getPeriod());
 	}

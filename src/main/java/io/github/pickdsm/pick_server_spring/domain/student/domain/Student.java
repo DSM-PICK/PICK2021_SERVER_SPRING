@@ -58,7 +58,7 @@ public class Student {
 
 	public void changeMajor(Major major) {
 		if(HeadMajor != null)
-			throw new StudentIsHeadException();
+			throw StudentIsHeadException.EXCEPTION;
 		this.major = major;
 	}
 

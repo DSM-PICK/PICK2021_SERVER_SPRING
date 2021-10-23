@@ -24,7 +24,7 @@ public class ChangePasswordService {
 	public void execute(PasswordRequest request) {
 		Teacher teacher = teacherRepository
 				.findById(teacherFacade.getCurrentTeacherId())
-				.orElseThrow(CredentialsNotFoundException::new);
+				.orElseThrow(() -> CredentialsNotFoundException.EXCEPTION);
 		teacher.changePassword(
 				passwordEncoder.encode(request.getPassword())
 		);

@@ -9,7 +9,7 @@ public class EnumUtils {
 		try {
 			return Day.valueOf(day);
 		} catch (IllegalArgumentException e) {
-			throw new InvalidEnumValueException();
+			throw InvalidEnumValueException.EXCEPTION;
 		}
 	}
 

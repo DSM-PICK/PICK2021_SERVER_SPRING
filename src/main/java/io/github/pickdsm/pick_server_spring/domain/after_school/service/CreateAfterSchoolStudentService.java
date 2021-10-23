@@ -23,7 +23,7 @@ public class CreateAfterSchoolStudentService {
 	public void execute(Long afterSchoolId, CreateAfterSchoolStudentRequest request) {
 		AfterSchool afterSchool = afterSchoolRepository
 				.findById(afterSchoolId)
-				.orElseThrow(AfterSchoolNotFoundException::new);
+				.orElseThrow(() -> AfterSchoolNotFoundException.EXCEPTION);
 		Student student = studentFacade.getStudentById(request.getStudentId());
 
 		affiliatedAfterSchoolFacade

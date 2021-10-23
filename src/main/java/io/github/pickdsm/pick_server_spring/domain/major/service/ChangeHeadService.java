@@ -7,8 +7,6 @@ import io.github.pickdsm.pick_server_spring.domain.major.domain.repository.Major
 import io.github.pickdsm.pick_server_spring.domain.major.exception.MajorNotFoundException;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.ChangeHeadRequest;
 import io.github.pickdsm.pick_server_spring.domain.student.domain.Student;
-import io.github.pickdsm.pick_server_spring.domain.student.domain.repository.StudentRepository;
-import io.github.pickdsm.pick_server_spring.domain.student.exception.StudentNotFoundException;
 import io.github.pickdsm.pick_server_spring.domain.student.facade.StudentFacade;
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +22,7 @@ public class ChangeHeadService {
 	@Transactional
 	public void execute(ChangeHeadRequest request) {
 		Major major = majorRepository.findById(request.getMajorId())
-				.orElseThrow(MajorNotFoundException::new);
+				.orElseThrow(() -> MajorNotFoundException.EXCEPTION);
 		Student student = studentFacade
 				.getStudentById(request.getStudentId());
 		major.changeHead(student);

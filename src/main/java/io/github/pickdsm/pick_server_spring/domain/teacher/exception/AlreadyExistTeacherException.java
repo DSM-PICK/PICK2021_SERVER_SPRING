@@ -5,7 +5,10 @@ import io.github.pickdsm.pick_server_spring.global.error.exception.PickException
 
 public class AlreadyExistTeacherException extends PickException {
 
-	public AlreadyExistTeacherException() {
+	public static final PickException EXCEPTION
+			= new AlreadyExistTeacherException();
+
+	private AlreadyExistTeacherException() {
 		super(ErrorCode.ALREADY_EXIST_TEACHER);
 	}
 

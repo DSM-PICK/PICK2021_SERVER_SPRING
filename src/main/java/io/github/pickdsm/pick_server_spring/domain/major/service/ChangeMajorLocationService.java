@@ -22,7 +22,7 @@ public class ChangeMajorLocationService {
 	@Transactional
 	public void execute(Long majorId, ChangeLocationRequest request) {
 		Major major = majorRepository.findById(majorId)
-				.orElseThrow(MajorNotFoundException::new);
+				.orElseThrow(() -> MajorNotFoundException.EXCEPTION);
 		Location location = locationFacade
 				.getLocationById(request.getLocationId());
 		major.changeLocation(location);
