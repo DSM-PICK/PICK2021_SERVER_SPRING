@@ -63,14 +63,12 @@ public class JwtTokenProvider {
 		return null;
 	}
 
-	public boolean validateToken(String token) {
-		return getTokenBody(token)
-				.getExpiration().after(new Date());
-	}
-
 	public Authentication authentication(String token) {
+		Claims body = getTokenBody(token);
+		if(!body.getExpiration().after(new Date()))
+			return null;
 		UserDetails userDetails = authDetailsService
-				.loadUserByUsername(getTokenSubject(token));
+				.loadUserByUsername(body.getSubject());
 		return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 	}
 
@@ -84,10 +82,5 @@ public class JwtTokenProvider {
 			throw new InvalidTokenException();
 		}
 	}
-
-	private String getTokenSubject(String token) {
-		return getTokenBody(token).getSubject();
-	}
-
 
 }
