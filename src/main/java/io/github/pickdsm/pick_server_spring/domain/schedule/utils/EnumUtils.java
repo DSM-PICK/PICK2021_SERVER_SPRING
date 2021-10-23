@@ -9,7 +9,7 @@ public class EnumUtils {
 		try {
 			return ScheduleName.valueOf(value);
 		} catch (IllegalArgumentException e) {
-			throw new InvalidEnumValueException();
+			throw InvalidEnumValueException.EXCEPTION;
 		}
 	}
 

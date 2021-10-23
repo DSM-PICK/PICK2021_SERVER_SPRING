@@ -22,7 +22,7 @@ public class ChangeScheduleNameService {
 	public void execute(ChangeNameRequest request) {
 		Schedule schedule = scheduleRepository
 				.findByDate(request.getDate())
-				.orElseThrow(ScheduleNotFoundException::new);
+				.orElseThrow(() -> ScheduleNotFoundException.EXCEPTION);
 		ScheduleName name = EnumUtils
 				.convertToScheduleName(request.getName());
 

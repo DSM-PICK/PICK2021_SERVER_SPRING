@@ -5,7 +5,10 @@ import io.github.pickdsm.pick_server_spring.global.error.exception.PickException
 
 public class AlreadyExistAfterSchoolNameException extends PickException {
 
-	public AlreadyExistAfterSchoolNameException() {
+	public static final PickException EXCEPTION
+			= new AlreadyExistAfterSchoolNameException();
+
+	private AlreadyExistAfterSchoolNameException() {
 		super(ErrorCode.ALREADY_EXIST_AFTER_SCHOOL_NAME);
 	}
 

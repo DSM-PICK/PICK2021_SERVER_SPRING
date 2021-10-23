@@ -21,7 +21,7 @@ public class AffiliatedAfterSchoolFacade {
 				.findByAfterSchoolAndStudent(afterSchool.getId(),
 						student.getId())
 				.isPresent())
-			throw new AlreadyExistStudentException();
+			throw AlreadyExistStudentException.EXCEPTION;
 		affiliatedAfterSchoolRepository.save(
 				AffiliatedAfterSchool.builder()
 				.afterSchool(afterSchool)
@@ -35,7 +35,7 @@ public class AffiliatedAfterSchoolFacade {
 				.findByAfterSchoolAndStudent(afterSchool.getId(),
 						student.getId())
 				.isEmpty())
-			throw new AffiliatedNotFoundException();
+			throw AffiliatedNotFoundException.EXCEPTION;
 		affiliatedAfterSchoolRepository.delete(
 				affiliatedAfterSchoolRepository
 						.findByAfterSchoolAndStudent(afterSchool.getId(),

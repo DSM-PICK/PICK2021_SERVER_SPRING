@@ -30,10 +30,10 @@ public class RegisterTeacherService {
 		if(teacherRepository
 				.findById(request.getId())
 				.isPresent())
-			throw new AlreadyExistTeacherException();
+			throw AlreadyExistTeacherException.EXCEPTION;
 
 		if(!request.getCode().equals(code))
-			throw new InvalidCodeException();
+			throw InvalidCodeException.EXCEPTION;
 
 		Teacher teacher = teacherRepository.save(
 				Teacher.builder()

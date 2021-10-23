@@ -17,7 +17,7 @@ public class TeacherFacade {
 
 	public Teacher getTeacherById(String id) {
 		return teacherRepository.findById(id)
-				.orElseThrow(CredentialsNotFoundException::new);
+				.orElseThrow(() -> CredentialsNotFoundException.EXCEPTION);
 	}
 
 	public String getCurrentTeacherId() {
@@ -26,7 +26,7 @@ public class TeacherFacade {
 		if(details instanceof AuthDetails) {
 			return ((AuthDetails)details).getTeacher().getId();
 		}
-		throw new CredentialsNotFoundException();
+		throw CredentialsNotFoundException.EXCEPTION;
 	}
 
 }

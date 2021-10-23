@@ -19,7 +19,7 @@ public class RemoveAfterSchoolService {
 	@Transactional
 	public void execute(Long afterSchoolId) {
 		if(!afterSchoolRepository.existsById(afterSchoolId))
-			throw new AfterSchoolNotFoundException();
+			throw AfterSchoolNotFoundException.EXCEPTION;
 
 		affiliatedAfterSchoolRepository.deleteByAfterSchool(afterSchoolId);
 		afterSchoolRepository.deleteById(afterSchoolId);

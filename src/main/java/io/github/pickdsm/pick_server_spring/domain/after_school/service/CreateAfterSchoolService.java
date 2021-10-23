@@ -24,7 +24,7 @@ public class CreateAfterSchoolService {
 
 	public void execute(CreateAfterSchoolRequest request) {
 		if(afterSchoolRepository.findByName(request.getName()).isPresent())
-			throw new AlreadyExistAfterSchoolNameException();
+			throw AlreadyExistAfterSchoolNameException.EXCEPTION;
 
 		Location location = locationFacade
 				.getLocationById(request.getLocationId());
@@ -41,7 +41,7 @@ public class CreateAfterSchoolService {
 					.build()
 			);
 		} catch (RuntimeException e) {
-			throw new AlreadyExistDateAndLocationException();
+			throw AlreadyExistDateAndLocationException.EXCEPTION;
 		}
 
 	}

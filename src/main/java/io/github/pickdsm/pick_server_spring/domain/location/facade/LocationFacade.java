@@ -15,7 +15,7 @@ public class LocationFacade {
 
 	public Location getLocationById(Long id) {
 		return locationRepository.findById(id)
-				.orElseThrow(LocationNotFoundException::new);
+				.orElseThrow(() -> LocationNotFoundException.EXCEPTION);
 	}
 
 }

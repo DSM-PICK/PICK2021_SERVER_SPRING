@@ -19,7 +19,7 @@ public class CreateScheduleService {
 	public void execute(CreateRequest request) {
 		scheduleRepository
 				.findByDate(request.getDate())
-				.ifPresent(schedule -> {throw new AlreadyExistScheduleException();});
+				.ifPresent(schedule -> {throw AlreadyExistScheduleException.EXCEPTION;});
 		ScheduleName name = EnumUtils
 				.convertToScheduleName(request.getName());
 		scheduleRepository.save(

@@ -52,7 +52,7 @@ public class Major {
 	public void changeHead(Student head) {
 		if(head.getMajor() == null ||
 				!head.getMajor().getId().equals(this.id))
-			throw new NotMajorMemberException();
+			throw NotMajorMemberException.EXCEPTION;
 		this.head = head;
 	}
 

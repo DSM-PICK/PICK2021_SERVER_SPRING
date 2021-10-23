@@ -18,7 +18,7 @@ public class ChangeMajorNameService {
 	@Transactional
 	public void execute(Long majorId, ChangeNameRequest request) {
 		majorRepository.findById(majorId)
-				.orElseThrow(MajorNotFoundException::new)
+				.orElseThrow(() -> MajorNotFoundException.EXCEPTION)
 				.changeName(request.getMajorName());
 	}
 

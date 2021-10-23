@@ -17,7 +17,7 @@ public class QueryInformationService {
 	public InformationResponse execute(String teacherId) {
 		Teacher teacher = teacherRepository
 				.findById(teacherId)
-				.orElseThrow(TeacherNotFoundException::new);
+				.orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
 		Long locationId = null;
 		String locationName = null;
 

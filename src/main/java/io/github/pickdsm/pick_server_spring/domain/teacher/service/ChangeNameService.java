@@ -21,7 +21,7 @@ public class ChangeNameService {
 	public void execute(NameRequest request) {
 		teacherRepository
 				.findById(teacherFacade.getCurrentTeacherId())
-				.orElseThrow(CredentialsNotFoundException::new)
+				.orElseThrow(() -> CredentialsNotFoundException.EXCEPTION)
 				.changeName(request.getName());
 	}
 

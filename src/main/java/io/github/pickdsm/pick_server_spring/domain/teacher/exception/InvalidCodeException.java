@@ -5,7 +5,10 @@ import io.github.pickdsm.pick_server_spring.global.error.exception.PickException
 
 public class InvalidCodeException extends PickException {
 
-	public InvalidCodeException() {
+	public static final PickException EXCEPTION
+			= new InvalidCodeException();
+
+	private InvalidCodeException() {
 		super(ErrorCode.INVALID_CODE);
 	}
 

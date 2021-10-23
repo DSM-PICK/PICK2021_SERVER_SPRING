@@ -20,7 +20,7 @@ public class QueryMajorInformationService {
 	public MajorInformationResponse execute(Long majorId) {
 		Major major = majorRepository
 				.findById(majorId)
-				.orElseThrow(MajorNotFoundException::new);
+				.orElseThrow(() -> MajorNotFoundException.EXCEPTION);
 
 		return new MajorInformationResponse(
 				major.getName(),

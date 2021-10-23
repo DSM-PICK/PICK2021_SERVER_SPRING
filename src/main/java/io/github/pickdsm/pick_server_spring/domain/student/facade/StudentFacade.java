@@ -15,12 +15,12 @@ public class StudentFacade {
 
 	public Student getStudentById(Long id) {
 		return studentRepository.findById(id)
-				.orElseThrow(StudentNotFoundException::new);
+				.orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 	}
 
 	public Student getStudentByNameAndGcn(String name, String gcn) {
 		return studentRepository.findByNameAndGcn(name, gcn)
-				.orElseThrow(StudentNotFoundException::new);
+				.orElseThrow(() -> StudentNotFoundException.EXCEPTION);
 	}
 
 }

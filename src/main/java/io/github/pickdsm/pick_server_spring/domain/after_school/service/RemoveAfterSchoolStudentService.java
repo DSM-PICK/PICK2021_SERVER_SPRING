@@ -1,6 +1,5 @@
 package io.github.pickdsm.pick_server_spring.domain.after_school.service;
 
-import io.github.pickdsm.pick_server_spring.domain.affiliated_after_school.domain.repository.AffiliatedAfterSchoolRepository;
 import io.github.pickdsm.pick_server_spring.domain.affiliated_after_school.facade.AffiliatedAfterSchoolFacade;
 import io.github.pickdsm.pick_server_spring.domain.after_school.domain.AfterSchool;
 import io.github.pickdsm.pick_server_spring.domain.after_school.domain.repository.AfterSchoolRepository;
@@ -23,7 +22,7 @@ public class RemoveAfterSchoolStudentService {
 	public void execute(Long afterSchoolId, RemoveAfterSchoolStudentRequest request) {
 		AfterSchool afterSchool = afterSchoolRepository
 				.findById(afterSchoolId)
-				.orElseThrow(AfterSchoolNotFoundException::new);
+				.orElseThrow(() -> AfterSchoolNotFoundException.EXCEPTION);
 		Student student = studentFacade
 				.getStudentById(request.getStudentId());
 		affiliatedAfterSchoolFacade.removeAffiliated(afterSchool, student);

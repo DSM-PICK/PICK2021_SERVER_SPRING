@@ -24,11 +24,11 @@ public class LoginTeacherService {
 	public TokenResponse execute(LoginRequest request) {
 		Teacher teacher = teacherRepository
 				.findById(request.getId())
-				.orElseThrow(CredentialsNotFoundException::new);
+				.orElseThrow(() -> CredentialsNotFoundException.EXCEPTION);
 
 		if(!passwordEncoder.matches(request.getPassword(),
 				teacher.getPassword()))
-			throw new WrongPasswordException();
+			throw WrongPasswordException.EXCEPTION;
 
 		return JwtUtils.getToken(teacher);
 

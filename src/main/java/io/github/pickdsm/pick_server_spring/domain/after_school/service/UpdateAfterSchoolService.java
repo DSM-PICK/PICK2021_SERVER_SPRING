@@ -25,7 +25,7 @@ public class UpdateAfterSchoolService {
 	public void execute(Long afterSchoolId, UpdateAfterSchoolRequest request) {
 		AfterSchool afterSchool = afterSchoolRepository
 				.findById(afterSchoolId)
-				.orElseThrow(AfterSchoolNotFoundException::new);
+				.orElseThrow(() -> AfterSchoolNotFoundException.EXCEPTION);
 		if(request.getName() != null) {
 			afterSchool.changeName(request.getName());
 		}

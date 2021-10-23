@@ -21,7 +21,7 @@ public class RemoveMajorService {
 	@Transactional
 	public void execute(Long majorId) {
 		Major major = majorRepository.findById(majorId)
-				.orElseThrow(MajorNotFoundException::new);
+				.orElseThrow(() -> MajorNotFoundException.EXCEPTION);
 
 		studentRepository.findByMajor(major.getId())
 				.forEach(Student::setMajorNull);
