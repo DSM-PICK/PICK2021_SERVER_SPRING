@@ -6,8 +6,6 @@ import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.requ
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.response.TokenResponse;
 import io.github.pickdsm.pick_server_spring.domain.teacher.utils.JwtUtils;
 import io.github.pickdsm.pick_server_spring.global.security.exception.ExpiredRefreshTokenException;
-import io.github.pickdsm.pick_server_spring.global.security.exception.InvalidTokenException;
-import io.github.pickdsm.pick_server_spring.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -17,16 +15,13 @@ import org.springframework.stereotype.Service;
 public class TokenRefreshService {
 
 	private final TeacherFacade teacherFacade;
-	private final JwtTokenProvider jwtTokenProvider;
 	private final RefreshTokenRepository refreshTokenRepository;
 
 	public TokenResponse execute(TokenRequest request) {
-		if(jwtTokenProvider.validateToken(request.getRefreshToken())) {
-			return refreshTokenRepository
-					.findByToken(request.getRefreshToken())
-					.map(token -> JwtUtils.getToken(teacherFacade.getTeacherById(token.getId())))
-					.orElseThrow(ExpiredRefreshTokenException::new);
-		} throw new InvalidTokenException();
+		return refreshTokenRepository
+				.findByToken(request.getRefreshToken())
+				.map(token -> JwtUtils.getToken(teacherFacade.getTeacherById(token.getId())))
+				.orElseThrow(ExpiredRefreshTokenException::new);
 	}
 
 }
