@@ -36,6 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.PUT, "/teacher/auth").permitAll()
 				.antMatchers(HttpMethod.GET, "/teacher/list").permitAll()
 				.antMatchers(HttpMethod.POST, "/major").hasRole("ADMIN")
+
+				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.anyRequest().authenticated()
 				.and().apply(new FilterConfig(jwtTokenProvider, globalExceptionFilter));
 	}
