@@ -10,6 +10,7 @@ import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.requ
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.request.RegisterRequest;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.request.TokenRequest;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.response.InformationResponse;
+import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.response.StudentDetailResponse;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.response.StudentResponse;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.response.TeacherResponse;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.response.TokenResponse;
@@ -17,6 +18,7 @@ import io.github.pickdsm.pick_server_spring.domain.teacher.service.ChangeNameSer
 import io.github.pickdsm.pick_server_spring.domain.teacher.service.ChangePasswordService;
 import io.github.pickdsm.pick_server_spring.domain.teacher.service.LoginTeacherService;
 import io.github.pickdsm.pick_server_spring.domain.teacher.service.QueryInformationService;
+import io.github.pickdsm.pick_server_spring.domain.teacher.service.QueryStudentDetailService;
 import io.github.pickdsm.pick_server_spring.domain.teacher.service.QueryStudentService;
 import io.github.pickdsm.pick_server_spring.domain.teacher.service.QueryTeacherListService;
 import io.github.pickdsm.pick_server_spring.domain.teacher.service.RegisterTeacherService;
@@ -48,6 +50,7 @@ public class TeacherController {
 	private final ChangeNameService changeNameService;
 	private final QueryTeacherListService queryTeacherListService;
 	private final QueryStudentService queryStudentService;
+	private final QueryStudentDetailService queryStudentDetailService;
 
 	@PostMapping("/register")
 	public TokenResponse registerTeacher(@RequestBody @Valid RegisterRequest request) {
@@ -89,6 +92,11 @@ public class TeacherController {
 	@GetMapping("/student")
 	public List<StudentResponse> queryStudent(@RequestParam("name") String name) {
 		return queryStudentService.execute(name);
+	}
+
+	@GetMapping("/student/detail")
+	public List<StudentDetailResponse> queryStudentDetail(@RequestParam("name") String name) {
+		return queryStudentDetailService.execute(name);
 	}
 
 }
