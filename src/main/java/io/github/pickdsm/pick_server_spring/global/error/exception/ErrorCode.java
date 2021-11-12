@@ -22,6 +22,8 @@ public enum ErrorCode {
 	WRONG_PASSWORD(401, "TEACHER-401-3", "Wrong password."),
 	TEACHER_NOT_FOUND(404, "TEACHER-404-1", "Teacher not found."),
 
+	INVALID_DATE(400, "SCHEDULE-400-1", "Invalid date."),
+	INVALID_FILE(400, "SCHEDULE-400-2", "Invalid file."),
 	SCHEDULE_NOT_FOUND(404, "SCHEDULE-404-1", "Schedule not found."),
 	DIRECTOR_NOT_FOUND(404, "SCHEDULE-404-2", "Director not found."),
 	ALREADY_EXIST_SCHEDULE(409, "SCHEDULE-409-1", "Already exist schedule."),
