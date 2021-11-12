@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import io.github.pickdsm.pick_server_spring.domain.schedule.domain.types.ScheduleName;
@@ -14,6 +15,7 @@ import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.req
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.ChangePeriodRequest;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.CreateDirectorRequest;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.CreateRequest;
+import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.request.QueryDirectorsRequest;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.response.ScheduleListResponse;
 import io.github.pickdsm.pick_server_spring.domain.schedule.presentation.dto.response.ScheduleNameResponse;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.ChangeDirectorService;
@@ -21,6 +23,7 @@ import io.github.pickdsm.pick_server_spring.domain.schedule.service.ChangeSchedu
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.ChangeSchedulePeriodService;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.CreateDirectorService;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.CreateScheduleService;
+import io.github.pickdsm.pick_server_spring.domain.schedule.service.QueryDirectorsService;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.QueryScheduleService;
 import io.github.pickdsm.pick_server_spring.domain.schedule.service.QuerySchedulesService;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +50,7 @@ public class ScheduleController {
 	private final QueryScheduleService queryScheduleService;
 	private final ChangeDirectorService changeDirectorService;
 	private final CreateDirectorService createDirectorService;
+	private final QueryDirectorsService queryDirectorsService;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -95,6 +99,11 @@ public class ScheduleController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void changeDirector(@RequestBody @Valid ChangeDirectorRequest request) {
 		changeDirectorService.execute(request);
+	}
+
+	@GetMapping("/director/export")
+	public void queryDirectors(QueryDirectorsRequest request, HttpServletResponse response) {
+		queryDirectorsService.execute(request, response);
 	}
 
 }
