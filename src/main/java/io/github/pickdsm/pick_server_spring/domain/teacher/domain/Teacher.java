@@ -1,20 +1,13 @@
 package io.github.pickdsm.pick_server_spring.domain.teacher.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
 import io.github.pickdsm.pick_server_spring.domain.location.domain.Location;
 import io.github.pickdsm.pick_server_spring.domain.teacher.domain.types.Role;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -35,7 +28,7 @@ public class Teacher {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "location_id")
 	private Location location;
 
@@ -56,6 +49,18 @@ public class Teacher {
 
 	public void changeName(String name) {
 		this.name = name;
+	}
+
+	public Long getLocationId() {
+		if(location == null)
+			return null;
+		return location.getId();
+	}
+
+	public String getLocationName() {
+		if(location == null)
+			return null;
+		return location.getName();
 	}
 
 }
