@@ -1,15 +1,5 @@
 package io.github.pickdsm.pick_server_spring.domain.student.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
 import io.github.pickdsm.pick_server_spring.domain.location.domain.Location;
 import io.github.pickdsm.pick_server_spring.domain.major.domain.Major;
 import io.github.pickdsm.pick_server_spring.domain.student.exception.StudentIsHeadException;
@@ -17,6 +7,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -44,8 +36,8 @@ public class Student {
 	@JoinColumn(name = "location_id")
 	private Location location;
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "head")
-	private Major HeadMajor;
+	@OneToOne(mappedBy = "head")
+	private Major headMajor;
 
 	@Builder
 	public Student(String name, String gcn, String state, Major major, Location location) {
@@ -57,7 +49,7 @@ public class Student {
 	}
 
 	public void changeMajor(Major major) {
-		if(HeadMajor != null)
+		if(headMajor != null)
 			throw StudentIsHeadException.EXCEPTION;
 		this.major = major;
 	}
