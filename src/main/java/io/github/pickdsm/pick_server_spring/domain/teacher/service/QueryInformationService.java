@@ -12,24 +12,18 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class QueryInformationService {
 
-	private final TeacherRepository teacherRepository;
+    private final TeacherRepository teacherRepository;
 
-	public InformationResponse execute(String teacherId) {
-		Teacher teacher = teacherRepository
-				.findById(teacherId)
-				.orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
-		Long locationId = null;
-		String locationName = null;
+    public InformationResponse execute(String teacherId) {
+        Teacher teacher = teacherRepository
+                .findById(teacherId)
+                .orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
+        Long locationId = teacher.getLocationId();
+        String locationName = teacher.getLocationName();
 
-		if(teacher.getLocation() != null) {
-			locationId = teacher.getLocation().getId();
-			locationName = teacher.getLocation().getName();
-		}
-
-		return new InformationResponse(
-				locationId, locationName,
-				teacher.getName()
-		);
-	}
+        return new InformationResponse(locationId, locationName,
+                teacher.getName()
+        );
+    }
 
 }
