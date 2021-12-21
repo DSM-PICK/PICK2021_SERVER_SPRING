@@ -1,15 +1,14 @@
 package io.github.pickdsm.pick_server_spring.domain.teacher.utils;
 
-import java.util.Optional;
-
 import io.github.pickdsm.pick_server_spring.domain.teacher.domain.RefreshToken;
 import io.github.pickdsm.pick_server_spring.domain.teacher.domain.Teacher;
 import io.github.pickdsm.pick_server_spring.domain.teacher.domain.repository.RefreshTokenRepository;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.response.TokenResponse;
 import io.github.pickdsm.pick_server_spring.global.security.jwt.JwtTokenProvider;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class JwtUtils {
@@ -37,7 +36,7 @@ public class JwtUtils {
 				.or(() -> Optional.of(new RefreshToken(teacher.getId(),
 						refreshToken, refreshExp)))
 				.ifPresent(token -> refreshTokenRepository.save(token.update(refreshToken, refreshExp)));
-		return new TokenResponse(accessToken, refreshToken);
+		return new TokenResponse(accessToken, refreshToken, teacher.getName());
 	}
 
 }
