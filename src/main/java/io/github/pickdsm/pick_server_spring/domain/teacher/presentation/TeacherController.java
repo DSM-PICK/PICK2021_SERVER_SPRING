@@ -80,7 +80,7 @@ public class TeacherController {
 
 	@PatchMapping("/name")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void changeName(@RequestBody @Valid NameRequest request) {
+	public void changeName(@RequestBody @Valid ChangeNameRequest request) {
 		changeNameService.execute(request);
 	}
 
