@@ -36,7 +36,7 @@ public class JwtUtils {
 				.or(() -> Optional.of(new RefreshToken(teacher.getId(),
 						refreshToken, refreshExp)))
 				.ifPresent(token -> refreshTokenRepository.save(token.update(refreshToken, refreshExp)));
-		return new TokenResponse(accessToken, refreshToken, teacher.getName());
+		return new TokenResponse(accessToken, refreshToken, teacher.getId());
 	}
 
 }
