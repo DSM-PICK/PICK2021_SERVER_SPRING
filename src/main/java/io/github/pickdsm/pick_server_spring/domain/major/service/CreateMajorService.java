@@ -1,26 +1,20 @@
 package io.github.pickdsm.pick_server_spring.domain.major.service;
 
-import javax.transaction.Transactional;
-
 import io.github.pickdsm.pick_server_spring.domain.location.domain.Location;
-import io.github.pickdsm.pick_server_spring.domain.location.domain.repository.LocationRepository;
-import io.github.pickdsm.pick_server_spring.domain.location.exception.LocationNotFoundException;
 import io.github.pickdsm.pick_server_spring.domain.location.facade.LocationFacade;
 import io.github.pickdsm.pick_server_spring.domain.major.domain.Major;
 import io.github.pickdsm.pick_server_spring.domain.major.domain.repository.MajorRepository;
 import io.github.pickdsm.pick_server_spring.domain.major.exception.AlreadyExistMajorNameException;
 import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.request.CreateMajorRequest;
+import io.github.pickdsm.pick_server_spring.domain.major.presentation.dto.response.PostMajorResponse;
 import io.github.pickdsm.pick_server_spring.domain.student.domain.Student;
-import io.github.pickdsm.pick_server_spring.domain.student.domain.repository.StudentRepository;
-import io.github.pickdsm.pick_server_spring.domain.student.exception.StudentNotFoundException;
 import io.github.pickdsm.pick_server_spring.domain.student.facade.StudentFacade;
 import io.github.pickdsm.pick_server_spring.domain.teacher.domain.Teacher;
-import io.github.pickdsm.pick_server_spring.domain.teacher.domain.repository.TeacherRepository;
-import io.github.pickdsm.pick_server_spring.domain.teacher.exception.TeacherNotFoundException;
 import io.github.pickdsm.pick_server_spring.domain.teacher.facade.TeacherFacade;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +26,7 @@ public class CreateMajorService {
 	private final MajorRepository majorRepository;
 
 	@Transactional
-	public void execute(CreateMajorRequest request) {
+	public PostMajorResponse execute(CreateMajorRequest request) {
 		majorRepository.findByName(request.getMajorName())
 				.ifPresent(major -> {throw AlreadyExistMajorNameException.EXCEPTION;});
 		Student head = studentFacade
@@ -51,6 +45,8 @@ public class CreateMajorService {
 				.build()
 		);
 		head.changeMajor(major);
+
+		return new PostMajorResponse(major.getId());
 	}
 
 }
