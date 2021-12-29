@@ -31,7 +31,7 @@ public class TeacherController {
 	}
 
 	@PostMapping("/login")
-	public TokenResponse loginTeacher(@RequestBody @Valid LoginRequest request) {
+	public LoginResponse loginTeacher(@RequestBody @Valid LoginRequest request) {
 		return loginTeacherService.execute(request);
 	}
 
