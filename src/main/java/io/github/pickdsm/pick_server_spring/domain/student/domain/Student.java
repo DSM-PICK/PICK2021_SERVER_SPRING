@@ -49,7 +49,7 @@ public class Student {
 	}
 
 	public void changeMajor(Major major) {
-		if(headMajor != null)
+		if(headMajor != null && !headMajor.getId().equals(major.getId()))
 			throw StudentIsHeadException.EXCEPTION;
 		this.major = major;
 	}
