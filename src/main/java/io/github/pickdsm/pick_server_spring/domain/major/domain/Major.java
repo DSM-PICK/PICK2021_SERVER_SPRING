@@ -37,7 +37,7 @@ public class Major {
 	@JoinColumn(name = "location_id", unique = true)
 	private Location location;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "major")
 	private final Set<Student> members = new HashSet<>();
 
 	public void changeHead(Student head) {
