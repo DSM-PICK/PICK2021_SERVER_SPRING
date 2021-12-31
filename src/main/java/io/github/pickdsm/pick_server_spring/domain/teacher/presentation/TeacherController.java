@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -24,6 +26,7 @@ public class TeacherController {
 	private final QueryTeacherListService queryTeacherListService;
 	private final QueryStudentService queryStudentService;
 	private final QueryStudentDetailService queryStudentDetailService;
+	private final QuerySpecificDateService querySpecificDateService;
 
 	@PostMapping("/register")
 	public TokenResponse registerTeacher(@RequestBody @Valid RegisterRequest request) {
@@ -70,6 +73,12 @@ public class TeacherController {
 	@GetMapping("/student/detail")
 	public List<StudentDetailResponse> queryStudentDetail(@RequestParam("name") String name) {
 		return queryStudentDetailService.execute(name);
+	}
+
+	@GetMapping("/{date}")
+	public TeacherScheduleResponse querySpecificDate(@PathVariable("date") String date) {
+		return querySpecificDateService
+				.execute(LocalDate.parse(date, DateTimeFormatter.ISO_DATE));
 	}
 
 }
