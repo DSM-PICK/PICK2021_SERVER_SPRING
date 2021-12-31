@@ -5,11 +5,9 @@ import io.github.pickdsm.pick_server_spring.domain.teacher.domain.repository.Tea
 import io.github.pickdsm.pick_server_spring.domain.teacher.exception.CredentialsNotFoundException;
 import io.github.pickdsm.pick_server_spring.domain.teacher.exception.WrongPasswordException;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.request.LoginRequest;
-import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.response.TokenResponse;
+import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.response.LoginResponse;
 import io.github.pickdsm.pick_server_spring.domain.teacher.utils.JwtUtils;
-import io.github.pickdsm.pick_server_spring.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +17,8 @@ public class LoginTeacherService {
 
 	private final TeacherRepository teacherRepository;
 	private final PasswordEncoder passwordEncoder;
-	private final JwtTokenProvider jwtTokenProvider;
 
-	public TokenResponse execute(LoginRequest request) {
+	public LoginResponse execute(LoginRequest request) {
 		Teacher teacher = teacherRepository
 				.findById(request.getId())
 				.orElseThrow(() -> CredentialsNotFoundException.EXCEPTION);
@@ -30,7 +27,7 @@ public class LoginTeacherService {
 				teacher.getPassword()))
 			throw WrongPasswordException.EXCEPTION;
 
-		return JwtUtils.getToken(teacher);
+		return new LoginResponse(JwtUtils.getToken(teacher), teacher.getLocationId(), teacher.getLocationName());
 
 	}
 
