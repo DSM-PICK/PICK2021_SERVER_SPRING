@@ -9,7 +9,7 @@ public class AfterSchoolResponse {
 
 	private final Long afterSchoolId;
 	private final String name;
-	private final String teacherId;
+	private final String teacherName;
 	private final String locationName;
 
 }
