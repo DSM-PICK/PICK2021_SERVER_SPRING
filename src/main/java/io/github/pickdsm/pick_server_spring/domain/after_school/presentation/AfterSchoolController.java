@@ -1,32 +1,18 @@
 package io.github.pickdsm.pick_server_spring.domain.after_school.presentation;
 
-import java.util.List;
-
-import javax.validation.Valid;
-
 import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.request.CreateAfterSchoolRequest;
 import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.request.CreateAfterSchoolStudentRequest;
 import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.request.RemoveAfterSchoolStudentRequest;
 import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.request.UpdateAfterSchoolRequest;
+import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.response.AfterSchoolDetailResponse;
 import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.response.AfterSchoolResponse;
-import io.github.pickdsm.pick_server_spring.domain.after_school.service.CreateAfterSchoolService;
-import io.github.pickdsm.pick_server_spring.domain.after_school.service.CreateAfterSchoolStudentService;
-import io.github.pickdsm.pick_server_spring.domain.after_school.service.QueryAfterSchoolService;
-import io.github.pickdsm.pick_server_spring.domain.after_school.service.RemoveAfterSchoolService;
-import io.github.pickdsm.pick_server_spring.domain.after_school.service.RemoveAfterSchoolStudentService;
-import io.github.pickdsm.pick_server_spring.domain.after_school.service.UpdateAfterSchoolService;
+import io.github.pickdsm.pick_server_spring.domain.after_school.service.*;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/after-school")
@@ -39,6 +25,7 @@ public class AfterSchoolController {
 	private final RemoveAfterSchoolService removeAfterSchoolService;
 	private final CreateAfterSchoolStudentService createAfterSchoolStudentService;
 	private final RemoveAfterSchoolStudentService removeAfterSchoolStudentService;
+	private final QuerySpecificAfterSchoolService querySpecificAfterSchoolService;
 
 	@GetMapping("/list")
 	public List<AfterSchoolResponse> queryAfterSchool() {
@@ -49,6 +36,11 @@ public class AfterSchoolController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createAfterSchool(@RequestBody @Valid CreateAfterSchoolRequest request) {
 		createAfterSchoolService.execute(request);
+	}
+
+	@GetMapping("/{after-school-id}")
+	public AfterSchoolDetailResponse querySpecificAfterSchool(@PathVariable("after-school-id") Long afterSchoolId) {
+		return querySpecificAfterSchoolService.execute(afterSchoolId);
 	}
 
 	@PatchMapping("/{after-school_id}")
