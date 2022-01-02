@@ -12,14 +12,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class QueryAfterSchoolService {
 
-	private final AfterSchoolRepository afterSchoolRepository;
+    private final AfterSchoolRepository afterSchoolRepository;
 
-	public List<AfterSchoolResponse> execute() {
-		return afterSchoolRepository.findAll()
-				.parallelStream()
-				.map(afterSchool -> new AfterSchoolResponse(afterSchool.getId(), afterSchool.getName(),
-						afterSchool.getTeacher().getName(), afterSchool.getLocation().getName()))
-				.collect(Collectors.toList());
-	}
+    public List<AfterSchoolResponse> execute() {
+        return afterSchoolRepository.findAll()
+                .parallelStream()
+                .map(afterSchool -> new AfterSchoolResponse(afterSchool.getId(), afterSchool.getName(),
+                        afterSchool.getTeacher().getName(), afterSchool.getLocation().getName(), afterSchool.getLocation().getFloor()))
+                .collect(Collectors.toList());
+    }
 
 }
