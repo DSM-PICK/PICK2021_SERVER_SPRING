@@ -29,11 +29,11 @@ public class Director {
 
 	private int floor;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "schedule_id")
 	private Schedule schedule;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "teacher_id")
 	private Teacher teacher;
 
