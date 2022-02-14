@@ -29,7 +29,7 @@ public class Major {
 	@JoinColumn(name = "head_id", unique = true)
 	private Student head;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "teacher_id")
 	private Teacher teacher;
 

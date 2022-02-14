@@ -31,7 +31,7 @@ public class AfterSchool {
 	@JoinColumn(name = "teacher_id")
 	private Teacher teacher;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "location_id")
 	private Location location;
 
