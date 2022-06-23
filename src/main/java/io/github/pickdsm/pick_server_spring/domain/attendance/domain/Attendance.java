@@ -56,6 +56,26 @@ public class Attendance {
 
 	private LocalDate date;
 
+	public Long getStudentId() {
+		return this.student.getId();
+	}
+
+	public String getStudentName() {
+		return this.student.getName();
+	}
+
+	public String getStudentGcn() {
+		return this.student.getGcn();
+	}
+
+	public String getTeacherId() {
+		return this.teacher.getId();
+	}
+
+	public String getTeacherName() {
+		return this.teacher.getName();
+	}
+
 	@Builder
 	public Attendance(int period, State state, String memo,
 			String reason, Student student, Teacher teacher, Location location, LocalDate date) {
