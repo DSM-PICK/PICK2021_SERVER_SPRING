@@ -10,16 +10,17 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class QueryLocationListService {
+public class QuerySpecificFloorLocationService {
 
-    private final LocationRepository locationRepository;
+    private final LocationRepository locationFacade;
 
-    public List<QueryLocationListResponse> queryLocationList() {
-        return locationRepository.findAll()
+    public List<QueryLocationListResponse> querySpecificFloorLocationList(int floor) {
+        return locationFacade.findByFloor(floor)
                 .stream().map(
                         location -> new QueryLocationListResponse(location.getId(), location.getFloor(),
                                 location.getPriority(), location.getName())
                 ).collect(Collectors.toList());
     }
+
 
 }
