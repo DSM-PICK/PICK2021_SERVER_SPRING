@@ -1,14 +1,17 @@
 package io.github.pickdsm.pick_server_spring.domain.attendance.presentation;
 
 import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.request.PostAttendanceRequest;
+import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.request.UpdateAttendanceRequest;
 import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.response.QueryTodayAttendanceResponse;
 import io.github.pickdsm.pick_server_spring.domain.attendance.service.DeleteAttendanceService;
 import io.github.pickdsm.pick_server_spring.domain.attendance.service.PostAttendanceService;
 import io.github.pickdsm.pick_server_spring.domain.attendance.service.QueryTodayAttendanceService;
+import io.github.pickdsm.pick_server_spring.domain.attendance.service.UpdateAttendanceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +30,7 @@ public class AttendanceController {
     private final PostAttendanceService postAttendanceService;
     private final QueryTodayAttendanceService queryTodayAttendanceService;
     private final DeleteAttendanceService deleteAttendanceService;
+    private final UpdateAttendanceService updateAttendanceService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -44,6 +48,13 @@ public class AttendanceController {
     public void deleteAttendance(@PathVariable("attendanceId") Long attendanceId) {
         deleteAttendanceService.deleteAttendance(attendanceId);
     }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/{attendanceId}")
+    public void updateAttendance(@RequestBody UpdateAttendanceRequest request, @PathVariable("attendanceId") Long attendanceId) {
+        updateAttendanceService.updateAttendance(request, attendanceId);
+    }
+
 
 
 }
