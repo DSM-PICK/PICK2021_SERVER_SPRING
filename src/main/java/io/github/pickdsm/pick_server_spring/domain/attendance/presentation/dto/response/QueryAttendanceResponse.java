@@ -13,6 +13,7 @@ public class QueryAttendanceResponse {
     private final String locationName;
     private final String className;
     private final String headName;
+    private final int period;
     private final List<StudentInfo> studentList;
 
 }
