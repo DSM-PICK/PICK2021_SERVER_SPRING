@@ -12,15 +12,14 @@ import java.util.stream.Collectors;
 @Service
 public class QueryLocationListService {
 
-    private final LocationRepository locationFacade;
+    private final LocationRepository locationRepository;
 
-    public List<QueryLocationListResponse> queryLocationList(int floor) {
-        return locationFacade.findByFloor(floor)
+    public List<QueryLocationListResponse> queryLocationList() {
+        return locationRepository.findAll()
                 .stream().map(
                         location -> new QueryLocationListResponse(location.getId(), location.getFloor(),
                                 location.getPriority(), location.getName())
                 ).collect(Collectors.toList());
     }
-
 
 }
