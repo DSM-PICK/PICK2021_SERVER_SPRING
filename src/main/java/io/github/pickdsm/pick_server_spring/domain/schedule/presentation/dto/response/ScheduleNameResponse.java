@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ScheduleNameResponse {
 
-	private String name;
+	private final String name;
+	private final int period;
 
 }
