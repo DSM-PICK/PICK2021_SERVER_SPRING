@@ -74,6 +74,10 @@ public class Attendance {
         return this.teacher.getName();
     }
 
+    public String getLocationName() {
+        return this.location.getName();
+    }
+
     @Builder
     public Attendance(int period, State state, String memo,
                       String reason, Student student, Teacher teacher, Location location, LocalDate date) {
