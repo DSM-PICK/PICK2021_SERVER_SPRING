@@ -38,6 +38,8 @@ public enum ErrorCode {
 
 	LOCATION_NOT_FOUND(404, "LOCATION-404-1", "Location not found."),
 
+	ATTENDANCE_NOT_FOUND(404, "ATTENDANCE-404-1", "Attendance not found."),
+
 	AFTER_SCHOOL_NOT_FOUND(404, "AFTER_SCHOOL-404-1", "After school not found."),
 	AFFILIATED_NOT_FOUND(404, "AFTER_SCHOOL-404-1", "Affiliated not found."),
 	ALREADY_EXIST_AFTER_SCHOOL_NAME(409, "AFTER_SCHOOL-409-1", "Already exist after school name."),
