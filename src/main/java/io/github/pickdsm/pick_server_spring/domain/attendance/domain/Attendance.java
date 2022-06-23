@@ -2,6 +2,8 @@ package io.github.pickdsm.pick_server_spring.domain.attendance.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,12 +11,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import io.github.pickdsm.pick_server_spring.domain.attendance.domain.type.State;
 import io.github.pickdsm.pick_server_spring.domain.director.domain.Director;
+import io.github.pickdsm.pick_server_spring.domain.location.domain.Location;
 import io.github.pickdsm.pick_server_spring.domain.student.domain.Student;
+import io.github.pickdsm.pick_server_spring.domain.teacher.domain.Teacher;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -27,8 +34,9 @@ public class Attendance {
 
 	private int period;
 
+	@Enumerated(EnumType.STRING)
 	@Column(length = 10)
-	private String state;
+	private State state;
 
 	private String memo;
 
@@ -39,18 +47,26 @@ public class Attendance {
 	private Student student;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "director_id")
-	private Director director;
+	@JoinColumn(name = "teacher_id")
+	private Teacher teacher;
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "location_id")
+	private Location location;
+
+	private LocalDate date;
 
 	@Builder
-	public Attendance(int period, String state, String memo,
-			String reason, Student student, Director director) {
+	public Attendance(int period, State state, String memo,
+			String reason, Student student, Teacher teacher, Location location, LocalDate date) {
 		this.period = period;
 		this.state = state;
 		this.memo = memo;
 		this.reason = reason;
 		this.student = student;
-		this.director = director;
+		this.teacher = teacher;
+		this.location = location;
+		this.date = date;
 	}
 
 }
