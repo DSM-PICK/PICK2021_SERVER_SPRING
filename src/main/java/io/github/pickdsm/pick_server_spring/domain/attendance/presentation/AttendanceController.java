@@ -2,9 +2,11 @@ package io.github.pickdsm.pick_server_spring.domain.attendance.presentation;
 
 import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.request.PostAttendanceRequest;
 import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.request.UpdateAttendanceRequest;
+import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.response.QueryAttendanceResponse;
 import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.response.QueryTodayAttendanceResponse;
 import io.github.pickdsm.pick_server_spring.domain.attendance.service.DeleteAttendanceService;
 import io.github.pickdsm.pick_server_spring.domain.attendance.service.PostAttendanceService;
+import io.github.pickdsm.pick_server_spring.domain.attendance.service.QueryAttendanceService;
 import io.github.pickdsm.pick_server_spring.domain.attendance.service.QueryTodayAttendanceService;
 import io.github.pickdsm.pick_server_spring.domain.attendance.service.UpdateAttendanceService;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,7 @@ public class AttendanceController {
     private final QueryTodayAttendanceService queryTodayAttendanceService;
     private final DeleteAttendanceService deleteAttendanceService;
     private final UpdateAttendanceService updateAttendanceService;
+    private final QueryAttendanceService queryAttendanceService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -55,6 +58,10 @@ public class AttendanceController {
         updateAttendanceService.updateAttendance(request, attendanceId);
     }
 
+    @GetMapping("/{locationId}")
+    public QueryAttendanceResponse queryAttendance(@PathVariable("locationId") Long locationId) {
+        return queryAttendanceService.queryAttendance(locationId);
+    }
 
 
 }
