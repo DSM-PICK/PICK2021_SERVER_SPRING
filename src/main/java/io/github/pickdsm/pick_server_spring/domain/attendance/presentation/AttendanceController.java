@@ -53,9 +53,9 @@ public class AttendanceController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/{attendanceId}")
-    public void updateAttendance(@RequestBody UpdateAttendanceRequest request, @PathVariable("attendanceId") Long attendanceId) {
-        updateAttendanceService.updateAttendance(request, attendanceId);
+    @PatchMapping
+    public void updateAttendance(@RequestBody UpdateAttendanceRequest request) {
+        updateAttendanceService.updateAttendance(request);
     }
 
     @GetMapping("/{locationId}")
