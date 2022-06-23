@@ -6,6 +6,7 @@ import io.github.pickdsm.pick_server_spring.domain.after_school.exception.AfterS
 import io.github.pickdsm.pick_server_spring.domain.attendance.domain.Attendance;
 import io.github.pickdsm.pick_server_spring.domain.attendance.domain.repository.AttendanceRepository;
 import io.github.pickdsm.pick_server_spring.domain.attendance.domain.repository.vo.StudentInfoVO;
+import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.request.QueryAttendanceRequest;
 import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.response.QueryAttendanceResponse;
 import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.response.StudentAttendance;
 import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.response.StudentInfo;
@@ -36,8 +37,10 @@ public class QueryAttendanceService {
     private final AfterSchoolRepository afterSchoolRepository;
     private final LocationFacade locationFacade;
 
-    public QueryAttendanceResponse queryAttendance(Long locationId) {
-        Schedule schedule = scheduleRepository.findByDate(LocalDate.now())
+    public QueryAttendanceResponse queryAttendance(QueryAttendanceRequest request, Long locationId) {
+        LocalDate date = request.getDate() == null ? LocalDate.now() : request.getDate();
+
+        Schedule schedule = scheduleRepository.findByDate(date)
                 .orElseThrow(() -> ScheduleNotFoundException.EXCEPTION);
 
         Location location = locationFacade.getLocationById(locationId);
@@ -67,7 +70,7 @@ public class QueryAttendanceService {
             studentInfoVOList = attendanceRepository.findSelfStudyStudentByLocationId(locationId);
         }
 
-        List<Attendance> attendances = attendanceRepository.findByLocationId(LocalDate.now(), location.getId());
+        List<Attendance> attendances = attendanceRepository.findByLocationId(date, location.getId());
 
         List<StudentInfo> studentInfoList = studentInfoVOList
                 .stream()
