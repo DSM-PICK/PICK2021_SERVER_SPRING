@@ -68,6 +68,7 @@ public class QueryAttendanceService {
                             .filter(attendance -> attendance.getStudentId().equals(student.getId()))
                             .map(attendance ->
                                     new StudentAttendance(
+                                            attendance.getId(),
                                             attendance.getPeriod(),
                                             attendance.getLocationName(),
                                             attendance.getState()

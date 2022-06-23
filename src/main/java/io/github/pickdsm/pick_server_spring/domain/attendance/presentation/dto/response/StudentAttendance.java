@@ -8,6 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class StudentAttendance {
 
+    private final Long id;
     private final int period;
     private final String locationName;
     private final State state;
