@@ -10,4 +10,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface LocationRepository extends CrudRepository<Location, Long> {
 	Optional<Location> findByName(String name);
 	List<Location> findByFloor(int floor);
+	List<Location> findAll();
 }
