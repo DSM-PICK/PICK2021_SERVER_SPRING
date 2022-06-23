@@ -5,6 +5,7 @@ import io.github.pickdsm.pick_server_spring.domain.after_school.domain.repositor
 import io.github.pickdsm.pick_server_spring.domain.after_school.exception.AfterSchoolNotFoundException;
 import io.github.pickdsm.pick_server_spring.domain.attendance.domain.Attendance;
 import io.github.pickdsm.pick_server_spring.domain.attendance.domain.repository.AttendanceRepository;
+import io.github.pickdsm.pick_server_spring.domain.attendance.domain.repository.vo.StudentInfoVO;
 import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.response.QueryAttendanceResponse;
 import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.response.StudentAttendance;
 import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.response.StudentInfo;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,22 +48,28 @@ public class QueryAttendanceService {
         String className = location.getName();
         String headName = null;
 
+        List<StudentInfoVO> studentInfoVOList = new ArrayList<>();
+
         if(ScheduleName.MAJOR.equals(schedule.getName())) {
             Major major = majorRepository.findByLocation(location)
                     .orElseThrow(() -> MajorNotFoundException.EXCEPTION);
 
             className = major.getName();
             headName = major.getHeadName();
+            studentInfoVOList = attendanceRepository.findMajorStudyStudentByLocationId(locationId);
         } else if(ScheduleName.AFTER_SCHOOL.equals(schedule.getName())) {
             AfterSchool afterSchool = afterSchoolRepository.findByLocation(location)
                     .orElseThrow(() -> AfterSchoolNotFoundException.EXCEPTION);
 
             className = afterSchool.getName();
+            studentInfoVOList = attendanceRepository.findAffiliatedAfterSchoolStudentByLocationId(locationId);
+        } else {
+            studentInfoVOList = attendanceRepository.findSelfStudyStudentByLocationId(locationId);
         }
 
         List<Attendance> attendances = attendanceRepository.findByLocationId(LocalDate.now(), location.getId());
 
-        List<StudentInfo> studentInfoList = attendanceRepository.findStudentByLocationId(LocalDate.now(), location.getId())
+        List<StudentInfo> studentInfoList = studentInfoVOList
                 .stream()
                 .map(student -> {
                     List<StudentAttendance> attendanceList = attendances.stream()
