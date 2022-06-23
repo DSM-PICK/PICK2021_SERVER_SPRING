@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateAttendanceRequest {
 
+    private Long attendanceId;
     private int period;
     private Long studentId;
     private String state;
