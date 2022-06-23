@@ -48,7 +48,7 @@ public class QueryAttendanceService {
         String className = location.getName();
         String headName = null;
 
-        List<StudentInfoVO> studentInfoVOList = new ArrayList<>();
+        List<StudentInfoVO> studentInfoVOList;
 
         if(ScheduleName.MAJOR.equals(schedule.getName())) {
             Major major = majorRepository.findByLocation(location)
@@ -87,7 +87,7 @@ public class QueryAttendanceService {
                     return new StudentInfo(student.getGcn(), student.getId(), student.getName(), attendanceList);
                 }).collect(Collectors.toList());
 
-        return new QueryAttendanceResponse(scheduleName, locationName, className, headName, studentInfoList);
+        return new QueryAttendanceResponse(scheduleName, locationName, className, headName, schedule.getPeriod(), studentInfoList);
 
     }
 
