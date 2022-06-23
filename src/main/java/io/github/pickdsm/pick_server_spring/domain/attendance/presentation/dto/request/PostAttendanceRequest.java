@@ -12,7 +12,6 @@ public class PostAttendanceRequest {
     private String state;
     private Long studentId;
     private String reason;
-    private String teacherId;
     private Long locationId;
     private LocalDate startDate;
     private int startPeriod;
