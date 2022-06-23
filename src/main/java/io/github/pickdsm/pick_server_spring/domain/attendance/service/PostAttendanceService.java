@@ -50,16 +50,16 @@ public class PostAttendanceService {
                     request.getReason(), request.getStartDate());
         } else { //날짜가 다를 때
             LocalDate startDate = request.getStartDate();
-            while(startDate.isBefore(request.getEndDate())) {
+            while(startDate.isBefore(request.getEndDate()) || startDate.isEqual(request.getEndDate())) {
                 if(request.getStartDate().equals(startDate)) {
                     saveAttendance(request.getStartPeriod(), 10, student, teacher, location, state,
                             request.getReason(), request.getStartDate());
                 } else if(request.getEndDate().equals(startDate)) {
                     saveAttendance(8, request.getEndPeriod(), student, teacher, location, state,
-                            request.getReason(), request.getStartDate());
+                            request.getReason(), request.getEndDate());
                 } else {
                     saveAttendance(8, 10, student, teacher, location, state,
-                            request.getReason(), request.getStartDate());
+                            request.getReason(), startDate);
                 }
 
                 //TODO 금요일 7교시부터시작 처리
