@@ -1,7 +1,9 @@
 package io.github.pickdsm.pick_server_spring.domain.after_school.domain;
 
+import io.github.pickdsm.pick_server_spring.domain.affiliated_after_school.domain.AffiliatedAfterSchool;
 import io.github.pickdsm.pick_server_spring.domain.after_school.domain.types.Day;
 import io.github.pickdsm.pick_server_spring.domain.location.domain.Location;
+import io.github.pickdsm.pick_server_spring.domain.student.domain.Student;
 import io.github.pickdsm.pick_server_spring.domain.teacher.domain.Teacher;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -9,6 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -34,6 +38,9 @@ public class AfterSchool {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "location_id")
 	private Location location;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "afterSchool")
+	private Set<AffiliatedAfterSchool> affiliatedAfterSchools = new HashSet<>();
 
 	public void changeName(String name) {
 		this.name = name;

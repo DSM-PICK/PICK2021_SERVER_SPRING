@@ -12,5 +12,6 @@ public class MajorResponse {
 	private final String locationName;
 	private final String headName;
 	private final int floor;
+	private final int count;
 
 }

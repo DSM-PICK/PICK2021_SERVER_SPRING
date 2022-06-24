@@ -16,9 +16,10 @@ public class QueryAfterSchoolService {
 
     public List<AfterSchoolResponse> execute() {
         return afterSchoolRepository.findAll()
-                .parallelStream()
+                .stream()
                 .map(afterSchool -> new AfterSchoolResponse(afterSchool.getId(), afterSchool.getName(),
-                        afterSchool.getTeacherName(), afterSchool.getLocationName(), afterSchool.getLocationFloor()))
+                        afterSchool.getTeacherName(), afterSchool.getLocationName(), afterSchool.getLocationFloor(),
+                        afterSchool.getAffiliatedAfterSchools().size()))
                 .collect(Collectors.toList());
     }
 
