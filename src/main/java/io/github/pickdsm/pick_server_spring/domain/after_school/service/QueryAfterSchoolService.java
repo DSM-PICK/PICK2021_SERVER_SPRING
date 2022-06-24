@@ -18,7 +18,7 @@ public class QueryAfterSchoolService {
         return afterSchoolRepository.findAll()
                 .parallelStream()
                 .map(afterSchool -> new AfterSchoolResponse(afterSchool.getId(), afterSchool.getName(),
-                        afterSchool.getTeacher().getName(), afterSchool.getLocation().getName(), afterSchool.getLocation().getFloor()))
+                        afterSchool.getTeacherName(), afterSchool.getLocationName(), afterSchool.getLocationFloor()))
                 .collect(Collectors.toList());
     }
 

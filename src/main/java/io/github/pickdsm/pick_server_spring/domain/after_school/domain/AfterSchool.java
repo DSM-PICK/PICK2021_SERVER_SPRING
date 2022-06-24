@@ -27,7 +27,7 @@ public class AfterSchool {
 	@Enumerated(EnumType.STRING)
 	private Day day;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "teacher_id")
 	private Teacher teacher;
 
@@ -49,6 +49,24 @@ public class AfterSchool {
 
 	public void changeLocation(Location location) {
 		this.location = location;
+	}
+
+	public String getTeacherName() {
+		if(this.teacher == null)
+			return null;
+		return this.teacher.getName();
+	}
+
+	public String getLocationName() {
+		if(this.location == null)
+			return null;
+		return this.location.getName();
+	}
+
+	public int getLocationFloor() {
+		if(this.location == null)
+			return 0;
+		return this.location.getFloor();
 	}
 
 	@Builder

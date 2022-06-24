@@ -16,12 +16,10 @@ public class QueryMajorListService {
 
 	public List<MajorResponse> execute() {
 		return majorRepository.findAll()
-				.stream().map(major -> {
-					String locationName = major.getLocation() == null ?
-							null : major.getLocation().getName();
-					return new MajorResponse(major.getId(), major.getName(),
-							locationName, major.getHead().getName(), major.getLocation().getFloor());
-		}).collect(Collectors.toList());
+				.stream().map(major ->
+						new MajorResponse(major.getId(), major.getName(),
+							major.getLocationName(), major.getHead().getName(), major.getLocationFloor())
+		).collect(Collectors.toList());
 	}
 
 }
