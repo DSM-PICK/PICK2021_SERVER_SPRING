@@ -12,5 +12,6 @@ public class AfterSchoolResponse {
 	private final String teacherName;
 	private final String locationName;
 	private final int floor;
+	private final int count;
 
 }
