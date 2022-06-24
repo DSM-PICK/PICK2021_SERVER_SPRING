@@ -37,8 +37,8 @@ public class QueryAttendanceService {
     private final AfterSchoolRepository afterSchoolRepository;
     private final LocationFacade locationFacade;
 
-    public QueryAttendanceResponse queryAttendance(QueryAttendanceRequest request, Long locationId) {
-        LocalDate date = request.getDate() == null ? LocalDate.now() : request.getDate();
+    public QueryAttendanceResponse queryAttendance(LocalDate requestLocal, Long locationId) {
+        LocalDate date = requestLocal == null ? LocalDate.now() : requestLocal;
 
         Schedule schedule = scheduleRepository.findByDate(date)
                 .orElseThrow(() -> ScheduleNotFoundException.EXCEPTION);

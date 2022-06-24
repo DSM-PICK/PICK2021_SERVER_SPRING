@@ -11,6 +11,7 @@ import io.github.pickdsm.pick_server_spring.domain.attendance.service.QueryAtten
 import io.github.pickdsm.pick_server_spring.domain.attendance.service.QueryTodayAttendanceService;
 import io.github.pickdsm.pick_server_spring.domain.attendance.service.UpdateAttendanceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -60,8 +62,8 @@ public class AttendanceController {
     }
 
     @GetMapping("/{locationId}")
-    public QueryAttendanceResponse queryAttendance(@RequestBody QueryAttendanceRequest queryAttendanceRequest, @PathVariable("locationId") Long locationId) {
-        return queryAttendanceService.queryAttendance(queryAttendanceRequest, locationId);
+    public QueryAttendanceResponse queryAttendance(@RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, @PathVariable("locationId") Long locationId) {
+        return queryAttendanceService.queryAttendance(date, locationId);
     }
 
 
