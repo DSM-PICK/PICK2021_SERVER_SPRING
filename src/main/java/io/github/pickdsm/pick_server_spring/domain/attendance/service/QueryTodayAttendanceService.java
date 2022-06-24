@@ -1,5 +1,6 @@
 package io.github.pickdsm.pick_server_spring.domain.attendance.service;
 
+import io.github.pickdsm.pick_server_spring.domain.attendance.domain.Attendance;
 import io.github.pickdsm.pick_server_spring.domain.attendance.domain.repository.AttendanceRepository;
 import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.response.QueryTodayAttendanceResponse;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +17,20 @@ public class QueryTodayAttendanceService {
     private final AttendanceRepository attendanceRepository;
 
     public List<QueryTodayAttendanceResponse> queryTodayAttendance(int floor) {
-        return attendanceRepository.findByFloor(LocalDate.now(), floor)
+        List<Attendance> attendanceList;
+        if(floor == 1) {
+            attendanceList = attendanceRepository.findAllByDate(LocalDate.now());
+        } else {
+            attendanceList = attendanceRepository.findByFloor(LocalDate.now(), floor);
+        }
+
+        return attendanceList
                 .stream().map(attendance ->
                     new QueryTodayAttendanceResponse(attendance.getId(), attendance.getState(), attendance.getPeriod(),
                             attendance.getReason(), attendance.getStudentId(), attendance.getStudentName(), attendance.getStudentGcn(),
                             attendance.getTeacherId(), attendance.getTeacherName())
                 ).collect(Collectors.toList());
+        //TODO startPeriod, endPeriod 추가
     }
 
 }

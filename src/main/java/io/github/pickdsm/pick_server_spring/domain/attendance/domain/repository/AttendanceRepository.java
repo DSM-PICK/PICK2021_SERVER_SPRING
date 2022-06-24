@@ -14,6 +14,8 @@ public interface AttendanceRepository extends CrudRepository<Attendance, Long> {
     @Query("SELECT a FROM tbl_attendance a WHERE a.date = :date AND a.location.floor = :floor")
     List<Attendance> findByFloor(LocalDate date, int floor);
 
+    List<Attendance> findAllByDate(LocalDate date);
+
     @Query("SELECT a FROM tbl_attendance a WHERE a.date = :date AND a.location.id = :locationId")
     List<Attendance> findByLocationId(LocalDate date, Long locationId);
 
