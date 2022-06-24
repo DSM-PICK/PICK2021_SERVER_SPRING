@@ -1,6 +1,7 @@
 package io.github.pickdsm.pick_server_spring.domain.attendance.presentation;
 
 import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.request.PostAttendanceRequest;
+import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.request.QueryAttendanceRequest;
 import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.request.UpdateAttendanceRequest;
 import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.response.QueryAttendanceResponse;
 import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.response.QueryTodayAttendanceResponse;
@@ -59,8 +60,8 @@ public class AttendanceController {
     }
 
     @GetMapping("/{locationId}")
-    public QueryAttendanceResponse queryAttendance(@PathVariable("locationId") Long locationId) {
-        return queryAttendanceService.queryAttendance(locationId);
+    public QueryAttendanceResponse queryAttendance(@RequestBody QueryAttendanceRequest queryAttendanceRequest, @PathVariable("locationId") Long locationId) {
+        return queryAttendanceService.queryAttendance(queryAttendanceRequest, locationId);
     }
 
 
