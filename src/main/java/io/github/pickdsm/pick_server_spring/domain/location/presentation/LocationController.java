@@ -6,9 +6,11 @@ import io.github.pickdsm.pick_server_spring.domain.location.presentation.dto.res
 import io.github.pickdsm.pick_server_spring.domain.location.service.CreateLocationService;
 import io.github.pickdsm.pick_server_spring.domain.location.service.QueryLocationListService;
 import io.github.pickdsm.pick_server_spring.domain.location.service.QuerySpecificFloorLocationService;
+import io.github.pickdsm.pick_server_spring.domain.location.service.RemoveLocationService;
 import io.github.pickdsm.pick_server_spring.domain.location.service.UpdateLocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +31,7 @@ public class LocationController {
     private final QueryLocationListService queryLocationListService;
     private final CreateLocationService createLocationService;
     private final UpdateLocationService updateLocationService;
+    private final RemoveLocationService removeLocationService;
 
     @GetMapping("/{floor}")
     public List<QueryLocationListResponse> querySpecificFloorLocationList(@PathVariable("floor") int floor) {
@@ -50,6 +53,12 @@ public class LocationController {
     @PatchMapping("/{locationId}")
     public void updateLocation(@PathVariable("locationId") Long locationId, @RequestBody UpdateLocationRequest request) {
         updateLocationService.updateLocation(locationId, request);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{locationId}")
+    public void removeLocation(@PathVariable("locationId") Long locationId) {
+        removeLocationService.removeLocation(locationId);
     }
 
 }
