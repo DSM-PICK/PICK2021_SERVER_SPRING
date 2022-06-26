@@ -37,6 +37,7 @@ public enum ErrorCode {
 	STUDENT_NOT_FOUND(404, "STUDENT-404-1", "Student not found."),
 
 	LOCATION_NOT_FOUND(404, "LOCATION-404-1", "Location not found."),
+	ALREADY_EXIST_LOCATION(409, "LOCATION-409-1", "Already exist location."),
 
 	ATTENDANCE_NOT_FOUND(404, "ATTENDANCE-404-1", "Attendance not found."),
 
