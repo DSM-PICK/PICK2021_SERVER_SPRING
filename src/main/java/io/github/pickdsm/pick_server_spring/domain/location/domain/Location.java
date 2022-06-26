@@ -34,4 +34,10 @@ public class Location {
 		this.name = name;
 	}
 
+	public void updateLocation(String name, int floor, int priority) {
+		this.name = name;
+		this.floor = floor;
+		this.priority = priority;
+	}
+
 }
