@@ -27,17 +27,15 @@ public class UpdateAttendanceService {
 
     @Transactional
     public void updateAttendance(UpdateAttendanceRequest request) {
-
-        Attendance attendance;
-
         Location location = locationFacade.getLocationById(request.getLocationId());
-        Student student = studentFacade.getStudentById(request.getStudentId());
 
         if (request.getAttendanceId() != null) {
-            attendance = attendanceRepository.findById(request.getAttendanceId())
+            Attendance attendance = attendanceRepository.findById(request.getAttendanceId())
                     .orElseThrow(() -> AttendanceNotFoundException.EXCEPTION);
+            attendance.updateAttendance(attendance.getPeriod(), attendance.getStudent(), State.valueOf(request.getState()), location);
         } else {
-            attendance = attendanceRepository.save(
+            Student student = studentFacade.getStudentById(request.getStudentId());
+            attendanceRepository.save(
                     Attendance.builder()
                             .period(request.getPeriod())
                             .state(State.valueOf(request.getState()))
@@ -50,7 +48,6 @@ public class UpdateAttendanceService {
             );
         }
 
-        attendance.updateAttendance(attendance.getPeriod(), student, State.valueOf(request.getState()), location);
     }
 
 }
