@@ -14,11 +14,13 @@ import java.util.stream.Collectors;
 @Service
 public class QueryTodayAttendanceService {
 
+    private static final int ALL_FLOOR = 1;
+
     private final AttendanceRepository attendanceRepository;
 
     public List<QueryTodayAttendanceResponse> queryTodayAttendance(int floor) {
         List<Attendance> attendanceList;
-        if(floor == 1) {
+        if(floor == ALL_FLOOR) {
             attendanceList = attendanceRepository.findAllByDate(LocalDate.now());
         } else {
             attendanceList = attendanceRepository.findByFloor(LocalDate.now(), floor);

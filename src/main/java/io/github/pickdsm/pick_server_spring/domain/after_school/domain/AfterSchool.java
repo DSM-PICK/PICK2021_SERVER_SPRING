@@ -39,7 +39,7 @@ public class AfterSchool {
 	@JoinColumn(name = "location_id")
 	private Location location;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "afterSchool")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "afterSchool", cascade = CascadeType.REMOVE)
 	private Set<AffiliatedAfterSchool> affiliatedAfterSchools = new HashSet<>();
 
 	public void changeName(String name) {

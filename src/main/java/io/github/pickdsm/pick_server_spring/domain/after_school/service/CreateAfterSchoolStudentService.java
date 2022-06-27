@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class CreateAfterSchoolStudentService {
 
 	private final AfterSchoolRepository afterSchoolRepository;
-	private final StudentFacade	 studentFacade;
+	private final StudentFacade studentFacade;
 	private final AffiliatedAfterSchoolFacade affiliatedAfterSchoolFacade;
 
 

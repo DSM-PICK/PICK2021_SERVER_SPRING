@@ -14,14 +14,12 @@ import org.springframework.stereotype.Service;
 public class RemoveAfterSchoolService {
 
 	private final AfterSchoolRepository afterSchoolRepository;
-	private final AffiliatedAfterSchoolRepository affiliatedAfterSchoolRepository;
 
 	@Transactional
 	public void execute(Long afterSchoolId) {
 		if(!afterSchoolRepository.existsById(afterSchoolId))
 			throw AfterSchoolNotFoundException.EXCEPTION;
 
-		affiliatedAfterSchoolRepository.deleteByAfterSchool(afterSchoolId);
 		afterSchoolRepository.deleteById(afterSchoolId);
 	}
 
