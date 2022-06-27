@@ -30,9 +30,9 @@ public class UpdateAttendanceService {
 
         Location location;
         if (State.이동.equals(State.valueOf(request.getState()))) {
-            location = attendance.getLocation();
-        } else {
             location = locationFacade.getLocationById(request.getLocationId());
+        } else {
+            location = attendance.getLocation();
         }
 
         attendance.updateAttendance(attendance.getPeriod(), attendance.getStudent(), State.valueOf(request.getState()), location);
