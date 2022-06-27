@@ -52,6 +52,7 @@ public class QueryAttendanceService {
         String headName = null;
 
         List<StudentInfoVO> studentInfoVOList;
+        List<Attendance> attendances;
 
         if(ScheduleName.MAJOR.equals(schedule.getName())) {
             Major major = majorRepository.findByLocation(location)
@@ -60,17 +61,18 @@ public class QueryAttendanceService {
             className = major.getName();
             headName = major.getHeadName();
             studentInfoVOList = attendanceRepository.findMajorStudyStudentByLocationId(locationId);
+            attendances = attendanceRepository.findByMajorLocationId(date, locationId);
         } else if(ScheduleName.AFTER_SCHOOL.equals(schedule.getName())) {
             AfterSchool afterSchool = afterSchoolRepository.findByLocation(location)
                     .orElseThrow(() -> AfterSchoolNotFoundException.EXCEPTION);
 
             className = afterSchool.getName();
             studentInfoVOList = attendanceRepository.findAffiliatedAfterSchoolStudentByLocationId(locationId);
+            attendances = attendanceRepository.findByAfterSchoolId(date, locationId);
         } else {
             studentInfoVOList = attendanceRepository.findSelfStudyStudentByLocationId(locationId);
+            attendances = attendanceRepository.findByStudentLocationId(date, locationId);
         }
-
-        List<Attendance> attendances = attendanceRepository.findByLocationId(date, location.getId());
 
         List<StudentInfo> studentInfoList = studentInfoVOList
                 .stream()

@@ -19,6 +19,18 @@ public interface AttendanceRepository extends CrudRepository<Attendance, Long> {
     @Query("SELECT a FROM tbl_attendance a WHERE a.date = :date AND a.location.id = :locationId")
     List<Attendance> findByLocationId(LocalDate date, Long locationId);
 
+    @Query("SELECT a FROM tbl_attendance a WHERE a.date = :date AND a.student.major.location.id = :locationId")
+    List<Attendance> findByMajorLocationId(LocalDate date, Long locationId);
+
+    @Query("SELECT a FROM tbl_attendance a WHERE a.date = :date AND a.student.location.id = :locationId")
+    List<Attendance> findByStudentLocationId(LocalDate date, Long locationId);
+
+    @Query("SELECT a FROM tbl_attendance a " +
+            "LEFT JOIN FETCH tbl_affiliated_after_school taas ON a.student.id = taas.student.id " +
+            "LEFT JOIN FETCH tbl_after_school tas ON taas.afterSchool.id = tas.id " +
+            "WHERE a.date = :date AND tas.location.id = :locationId")
+    List<Attendance> findByAfterSchoolId(LocalDate date, Long locationId);
+
     @Query("SELECT NEW io.github.pickdsm.pick_server_spring." +
             "domain.attendance.domain.repository.vo.StudentInfoVO(a.student.gcn, a.student.id, a.student.name) " +
             "FROM tbl_attendance a WHERE a.date = :date AND a.location.id = :locationId")
