@@ -29,7 +29,7 @@ public class QueryDirectorsService {
 
 	public void execute(QueryDirectorsRequest request, HttpServletResponse response) {
 		List<Schedule> scheduleList =
-				scheduleRepository.findByYearAndMonth(request.getYear(), request.getMonth());
+				scheduleRepository.findByYearAndMonth(String.valueOf(request.getYear()), String.valueOf(request.getMonth()));
 		Workbook workbook = new XSSFWorkbook();
 		Sheet sheet = workbook.createSheet(String.format("PICK-%d-%d", request.getYear(), request.getMonth()));
 

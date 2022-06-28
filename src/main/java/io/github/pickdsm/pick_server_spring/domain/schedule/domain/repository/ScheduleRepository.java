@@ -13,5 +13,5 @@ public interface ScheduleRepository extends CrudRepository<Schedule, Long> {
 	Optional<Schedule> findByDate(LocalDate date);
 
 	@Query("SELECT s FROM tbl_schedule s WHERE s.date LIKE CONCAT(:year, '-', :month, '-%')")
-	List<Schedule> findByYearAndMonth(int year, int month);
+	List<Schedule> findByYearAndMonth(String year, String month);
 }
