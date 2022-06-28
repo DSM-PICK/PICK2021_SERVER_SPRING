@@ -23,7 +23,7 @@ public class QuerySchedulesService {
 	private final DirectorRepository directorRepository;
 
 	public List<ScheduleListResponse> execute(int year, int month) {
-		return scheduleRepository.findByYearAndMonth(String.valueOf(year), String.valueOf(month))
+		return scheduleRepository.findByYearAndMonth(String.valueOf(year), String.format("%02d", month))
 				.stream()
 				.map(schedule ->
 						new ScheduleListResponse(
