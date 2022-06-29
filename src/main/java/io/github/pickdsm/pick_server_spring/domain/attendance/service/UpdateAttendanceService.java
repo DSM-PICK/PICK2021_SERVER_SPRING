@@ -8,6 +8,7 @@ import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.r
 import io.github.pickdsm.pick_server_spring.domain.location.domain.Location;
 import io.github.pickdsm.pick_server_spring.domain.location.facade.LocationFacade;
 import io.github.pickdsm.pick_server_spring.domain.student.facade.StudentFacade;
+import io.github.pickdsm.pick_server_spring.domain.teacher.domain.Teacher;
 import io.github.pickdsm.pick_server_spring.domain.teacher.facade.TeacherFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,8 @@ public class UpdateAttendanceService {
         Attendance attendance = attendanceRepository.findById(request.getAttendanceId())
                 .orElseThrow(() -> AttendanceNotFoundException.EXCEPTION);
 
+        Teacher currentTeacher = teacherFacade.getTeacherById(teacherFacade.getCurrentTeacherId());
+
         Location location;
         if (State.이동.equals(State.valueOf(request.getState()))) {
             location = locationFacade.getLocationById(request.getLocationId());
@@ -35,7 +38,8 @@ public class UpdateAttendanceService {
             location = attendance.getLocation();
         }
 
-        attendance.updateAttendance(attendance.getPeriod(), attendance.getStudent(), State.valueOf(request.getState()), location);
+        attendance.updateAttendance(attendance.getPeriod(), State.valueOf(request.getState()), location,
+                currentTeacher, request.getReason());
 
 
     }

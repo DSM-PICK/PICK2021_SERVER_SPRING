@@ -4,21 +4,17 @@ import io.github.pickdsm.pick_server_spring.domain.attendance.domain.Attendance;
 import io.github.pickdsm.pick_server_spring.domain.attendance.domain.repository.AttendanceRepository;
 import io.github.pickdsm.pick_server_spring.domain.attendance.domain.type.State;
 import io.github.pickdsm.pick_server_spring.domain.attendance.presentation.dto.request.PostAttendanceRequest;
-import io.github.pickdsm.pick_server_spring.domain.director.domain.Director;
-import io.github.pickdsm.pick_server_spring.domain.director.domain.repository.DirectorRepository;
 import io.github.pickdsm.pick_server_spring.domain.location.domain.Location;
 import io.github.pickdsm.pick_server_spring.domain.location.facade.LocationFacade;
-import io.github.pickdsm.pick_server_spring.domain.schedule.domain.Schedule;
-import io.github.pickdsm.pick_server_spring.domain.schedule.domain.repository.ScheduleRepository;
-import io.github.pickdsm.pick_server_spring.domain.schedule.exception.DirectorNotFoundException;
-import io.github.pickdsm.pick_server_spring.domain.schedule.exception.ScheduleNotFoundException;
 import io.github.pickdsm.pick_server_spring.domain.student.domain.Student;
 import io.github.pickdsm.pick_server_spring.domain.student.facade.StudentFacade;
 import io.github.pickdsm.pick_server_spring.domain.teacher.domain.Teacher;
 import io.github.pickdsm.pick_server_spring.domain.teacher.facade.TeacherFacade;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 
 @RequiredArgsConstructor
@@ -30,6 +26,8 @@ public class PostAttendanceService {
     private final TeacherFacade teacherFacade;
     private final LocationFacade locationFacade;
 
+    @Async
+    @Transactional
     public void postAttendance(PostAttendanceRequest request) {
 
         Student student = studentFacade.getStudentById(request.getStudentId());
@@ -72,16 +70,23 @@ public class PostAttendanceService {
     private void saveAttendance(int startPeriod, int endPeriod, Student student, Teacher teacher, Location location,
                                 State state, String reason, LocalDate date) {
         for(int i = startPeriod; i <= endPeriod; i++) {
-            Attendance attendance = Attendance.builder()
-                    .student(student)
-                    .teacher(teacher)
-                    .location(location)
-                    .state(state)
-                    .reason(reason)
-                    .date(date)
-                    .period(i)
-                    .build();
-            attendanceRepository.save(attendance);
+            if (attendanceRepository.findByLocationAndDateAndPeriod(location, date, i).isPresent()) {
+                Attendance attendance = attendanceRepository.findByLocationAndDateAndPeriod(location, date, i).get();
+                attendance.updateAttendance(i, state, location, teacher, reason);
+                attendanceRepository.save(attendance);
+            } else {
+                Attendance attendance = Attendance.builder()
+                        .student(student)
+                        .teacher(teacher)
+                        .location(location)
+                        .state(state)
+                        .reason(reason)
+                        .date(date)
+                        .period(i)
+                        .build();
+                attendanceRepository.save(attendance);
+            }
+
         }
     }
 
