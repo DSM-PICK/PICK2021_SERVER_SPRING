@@ -12,5 +12,6 @@ public class UpdateAttendanceRequest {
     private Long studentId;
     private String state;
     private Long locationId;
+    private String reason;
 
 }

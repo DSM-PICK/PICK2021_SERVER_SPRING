@@ -94,11 +94,12 @@ public class Attendance {
         this.date = date;
     }
 
-    public void updateAttendance(int period, Student student, State state, Location location) {
+    public void updateAttendance(int period, State state, Location location, Teacher teacher, String reason) {
         this.period = period;
-        this.student = student;
         this.state = state;
         this.location = location;
+        this.teacher = teacher;
+        this.reason = reason;
     }
 
 }
