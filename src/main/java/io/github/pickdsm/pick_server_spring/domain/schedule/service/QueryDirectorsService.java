@@ -2,6 +2,7 @@ package io.github.pickdsm.pick_server_spring.domain.schedule.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,6 +20,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import org.springframework.stereotype.Service;
+
+import static java.time.format.TextStyle.NARROW;
 
 @Service
 @RequiredArgsConstructor
@@ -42,11 +45,12 @@ public class QueryDirectorsService {
 		informationRow.createCell(1).setCellValue("2층");
 		informationRow.createCell(2).setCellValue("3층");
 		informationRow.createCell(3).setCellValue("4층");
-		informationRow.createCell(4).setCellValue("타입");
+		informationRow.createCell(4).setCellValue("일정");
 
 		for(Schedule schedule : scheduleList) {
 			Row row = sheet.createRow(schedule.getDate().getDayOfMonth() + 1);
-			row.createCell(0).setCellValue(schedule.getDate().getDayOfMonth() + "일");
+			row.createCell(0).setCellValue(schedule.getDate().getDayOfMonth() + "일" + "(" +
+					schedule.getDate().getDayOfWeek().getDisplayName(NARROW, Locale.KOREAN) + ")");
 			for(Director director : directorRepository.findBySchedule(schedule.getId())) {
 				Cell cell = row.createCell(director.getFloor() - 1);
 				cell.setCellValue(director.getTeacher().getName());
