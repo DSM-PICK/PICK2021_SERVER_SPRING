@@ -4,6 +4,7 @@ import io.github.pickdsm.pick_server_spring.domain.attendance.domain.Attendance;
 
 import io.github.pickdsm.pick_server_spring.domain.attendance.domain.repository.vo.StudentInfoVO;
 import io.github.pickdsm.pick_server_spring.domain.location.domain.Location;
+import io.github.pickdsm.pick_server_spring.domain.student.domain.Student;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -21,7 +22,7 @@ public interface AttendanceRepository extends CrudRepository<Attendance, Long> {
     @Query("SELECT a FROM tbl_attendance a WHERE a.date = :date AND a.location.id = :locationId")
     List<Attendance> findByLocationId(LocalDate date, Long locationId);
 
-    Optional<Attendance> findByLocationAndDateAndPeriod(Location location, LocalDate date, int period);
+    Optional<Attendance> findByLocationAndStudentAndDateAndPeriod(Location location, Student student, LocalDate date, int period);
 
     @Query("SELECT a FROM tbl_attendance a WHERE a.date = :date AND a.student.major.location.id = :locationId")
     List<Attendance> findByMajorLocationId(LocalDate date, Long locationId);

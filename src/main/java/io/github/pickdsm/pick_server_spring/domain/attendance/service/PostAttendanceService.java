@@ -26,7 +26,6 @@ public class PostAttendanceService {
     private final TeacherFacade teacherFacade;
     private final LocationFacade locationFacade;
 
-    @Async
     @Transactional
     public void postAttendance(PostAttendanceRequest request) {
 
@@ -70,8 +69,9 @@ public class PostAttendanceService {
     private void saveAttendance(int startPeriod, int endPeriod, Student student, Teacher teacher, Location location,
                                 State state, String reason, LocalDate date) {
         for(int i = startPeriod; i <= endPeriod; i++) {
-            if (attendanceRepository.findByLocationAndDateAndPeriod(location, date, i).isPresent()) {
-                Attendance attendance = attendanceRepository.findByLocationAndDateAndPeriod(location, date, i).get();
+            System.out.println("hihii");
+            if (attendanceRepository.findByLocationAndStudentAndDateAndPeriod(location, student, date, i).isPresent()) {
+                Attendance attendance = attendanceRepository.findByLocationAndStudentAndDateAndPeriod(location, student, date, i).get();
                 attendance.updateAttendance(i, state, location, teacher, reason);
                 attendanceRepository.save(attendance);
             } else {
