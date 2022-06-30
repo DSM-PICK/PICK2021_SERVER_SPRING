@@ -70,8 +70,8 @@ public class PostAttendanceService {
                                 State state, String reason, LocalDate date) {
         for(int i = startPeriod; i <= endPeriod; i++) {
             System.out.println("hihii");
-            if (attendanceRepository.findByLocationAndDateAndPeriodAndStudent(location, student, date, i).isPresent()) {
-                Attendance attendance = attendanceRepository.findByLocationAndDateAndPeriodAndStudent(location, student, date, i).get();
+            if (attendanceRepository.findByLocationAndStudentAndDateAndPeriod(location, student, date, i).isPresent()) {
+                Attendance attendance = attendanceRepository.findByLocationAndStudentAndDateAndPeriod(location, student, date, i).get();
                 attendance.updateAttendance(i, state, location, teacher, reason);
                 attendanceRepository.save(attendance);
             } else {
