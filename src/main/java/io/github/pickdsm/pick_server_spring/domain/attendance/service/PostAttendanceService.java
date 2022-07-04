@@ -69,7 +69,6 @@ public class PostAttendanceService {
     private void saveAttendance(int startPeriod, int endPeriod, Student student, Teacher teacher, Location location,
                                 State state, String reason, LocalDate date) {
         for(int i = startPeriod; i <= endPeriod; i++) {
-            System.out.println("hihii");
             if (attendanceRepository.findByLocationAndStudentAndDateAndPeriod(location, student, date, i).isPresent()) {
                 Attendance attendance = attendanceRepository.findByLocationAndStudentAndDateAndPeriod(location, student, date, i).get();
                 attendance.updateAttendance(i, state, location, teacher, reason);
