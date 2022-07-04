@@ -6,6 +6,7 @@ import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto
 import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.request.UpdateAfterSchoolRequest;
 import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.response.AfterSchoolDetailResponse;
 import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.response.AfterSchoolResponse;
+import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.response.CreateAfterSchoolResponse;
 import io.github.pickdsm.pick_server_spring.domain.after_school.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,9 +34,8 @@ public class AfterSchoolController {
 	}
 
 	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public void createAfterSchool(@RequestBody @Valid CreateAfterSchoolRequest request) {
-		createAfterSchoolService.execute(request);
+	public CreateAfterSchoolResponse createAfterSchool(@RequestBody @Valid CreateAfterSchoolRequest request) {
+		return createAfterSchoolService.execute(request);
 	}
 
 	@GetMapping("/{after-school-id}")

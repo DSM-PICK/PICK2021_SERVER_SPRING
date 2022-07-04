@@ -5,6 +5,7 @@ import io.github.pickdsm.pick_server_spring.domain.after_school.domain.repositor
 import io.github.pickdsm.pick_server_spring.domain.after_school.exception.AlreadyExistAfterSchoolNameException;
 import io.github.pickdsm.pick_server_spring.domain.after_school.exception.AlreadyExistDateAndLocationException;
 import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.request.CreateAfterSchoolRequest;
+import io.github.pickdsm.pick_server_spring.domain.after_school.presentation.dto.response.CreateAfterSchoolResponse;
 import io.github.pickdsm.pick_server_spring.domain.after_school.utils.EnumUtils;
 import io.github.pickdsm.pick_server_spring.domain.location.domain.Location;
 import io.github.pickdsm.pick_server_spring.domain.location.facade.LocationFacade;
@@ -22,7 +23,7 @@ public class CreateAfterSchoolService {
 	private final LocationFacade locationFacade;
 	private final TeacherFacade teacherFacade;
 
-	public void execute(CreateAfterSchoolRequest request) {
+	public CreateAfterSchoolResponse execute(CreateAfterSchoolRequest request) {
 		if(afterSchoolRepository.findByName(request.getName()).isPresent())
 			throw AlreadyExistAfterSchoolNameException.EXCEPTION;
 
@@ -32,7 +33,7 @@ public class CreateAfterSchoolService {
 				.getTeacherById(request.getTeacherId());
 
 		try {
-			afterSchoolRepository.save(
+			AfterSchool afterSchool = afterSchoolRepository.save(
 					AfterSchool.builder()
 					.name(request.getName())
 					.day(EnumUtils.convertToDay(request.getDay()))
@@ -40,6 +41,7 @@ public class CreateAfterSchoolService {
 					.teacher(teacher)
 					.build()
 			);
+			return new CreateAfterSchoolResponse(afterSchool.getId());
 		} catch (RuntimeException e) {
 			throw AlreadyExistDateAndLocationException.EXCEPTION;
 		}
