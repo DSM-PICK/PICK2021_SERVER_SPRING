@@ -71,6 +71,13 @@ public class Major {
 		return this.location.getFloor();
 	}
 
+	public String getTeacherName() {
+		if(this.teacher == null) {
+			return null;
+		}
+		return this.teacher.getName();
+	}
+
 	@Builder
 	public Major(String name, Student head, Teacher teacher, Location location) {
 		this.name = name;
