@@ -31,7 +31,7 @@ public class AfterSchool {
 	@Enumerated(EnumType.STRING)
 	private Day day;
 
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "teacher_id")
 	private Teacher teacher;
 
