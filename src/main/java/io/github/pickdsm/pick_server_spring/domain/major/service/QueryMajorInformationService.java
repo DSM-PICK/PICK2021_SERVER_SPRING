@@ -25,9 +25,9 @@ public class QueryMajorInformationService {
 		return new MajorInformationResponse(
 				major.getName(),
 				major.getMembers().size(),
-				major.getHead().getName(),
-				major.getTeacher().getName(),
-				major.getLocation().getName(),
+				major.getHeadName(),
+				major.getTeacherName(),
+				major.getLocationName(),
 				major.getMembers()
 						.stream()
 						.map(member -> new Member(member.getId(),
