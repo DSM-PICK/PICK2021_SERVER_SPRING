@@ -77,6 +77,7 @@ class CreateAfterSchoolServiceTest {
 
         given(locationFacade.getLocationById(request.getLocationId())).willReturn(Location.builder().build());
         given(teacherFacade.getTeacherById(request.getTeacherId())).willReturn(Teacher.builder().build());
+        given(afterSchoolRepository.save(any())).willReturn(AfterSchool.builder().build());
 
         createAfterSchoolService.execute(request);
     }
