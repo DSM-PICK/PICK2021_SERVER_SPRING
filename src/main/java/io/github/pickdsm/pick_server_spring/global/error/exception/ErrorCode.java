@@ -32,6 +32,7 @@ public enum ErrorCode {
 	NOT_MAJOR_MEMBER(400, "MAJOR-400-1", "Not major member"),
 	MAJOR_NOT_FOUND(404, "MAJOR-404-1", "Major not found."),
 	ALREADY_EXIST_MAJOR_NAME(409, "MAJOR-409-1", "Already exist major name."),
+	ALREADY_EXIST_MAJOR_LOCATION(409, "MAJOR-409-2", "Already exist major location"),
 
 	STUDENT_IS_HEAD(400, "STUDENT-400-1", "Student is head."),
 	STUDENT_NOT_FOUND(404, "STUDENT-404-1", "Student not found."),
