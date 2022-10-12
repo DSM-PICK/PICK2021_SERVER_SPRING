@@ -27,6 +27,7 @@ public class TeacherController {
 	private final QueryStudentService queryStudentService;
 	private final QueryStudentDetailService queryStudentDetailService;
 	private final QuerySpecificDateService querySpecificDateService;
+	private final CreateTeacherService createTeacherService;
 
 	@PostMapping("/register")
 	public TokenResponse registerTeacher(@RequestBody @Valid RegisterRequest request) {
@@ -79,6 +80,11 @@ public class TeacherController {
 	public TeacherScheduleResponse querySpecificDate(@PathVariable("date") String date) {
 		return querySpecificDateService
 				.execute(LocalDate.parse(date, DateTimeFormatter.ISO_DATE));
+	}
+
+	@PostMapping
+	public void createTeacher(@RequestBody @Valid CreateTeacherRequest request) {
+		createTeacherService.execute(request);
 	}
 
 }
