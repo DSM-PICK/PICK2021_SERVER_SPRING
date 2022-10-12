@@ -31,4 +31,7 @@ logging:
   file.path: ${LOG_PATH:./}
   size: ${LOG_SIZE:10}
 
-teacher.code: ${REGISTER_CODE:0000}
+teacher:
+  code: ${REGISTER_CODE}
+  id: ${TEACHER_ID}
+  password: ${TEACHER_PASSWORD}
