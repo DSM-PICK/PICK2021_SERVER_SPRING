@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface TeacherRepository extends JpaRepository<Teacher, String> {
     Optional<Teacher> findByLocation(Location location);
 
-    Teacher findTop1ByOrderByIdDesc();
+    Optional<Teacher> findTop1ByOrderByIdDesc();
 
     boolean existsById(String id);
 }
