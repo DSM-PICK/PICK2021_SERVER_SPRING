@@ -16,6 +16,7 @@ public class CreateTeacherService {
 
     private final TeacherRepository teacherRepository;
     private final PasswordEncoder passwordEncoder;
+
     @Value("${teacher.id}")
     private String id;
 
