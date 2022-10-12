@@ -4,6 +4,7 @@ import io.github.pickdsm.pick_server_spring.domain.teacher.domain.Teacher;
 import io.github.pickdsm.pick_server_spring.domain.teacher.domain.repository.TeacherRepository;
 import io.github.pickdsm.pick_server_spring.domain.teacher.domain.types.Role;
 import io.github.pickdsm.pick_server_spring.domain.teacher.exception.AlreadyExistTeacherException;
+import io.github.pickdsm.pick_server_spring.domain.teacher.exception.TeacherNotFoundException;
 import io.github.pickdsm.pick_server_spring.domain.teacher.presentation.dto.request.CreateTeacherRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,10 +25,12 @@ public class CreateTeacherService {
     private String password;
 
     public void execute(CreateTeacherRequest request) {
-        Teacher lastTeacher = teacherRepository.findTop1ByOrderByIdDesc();
+        Teacher lastTeacher = teacherRepository.findTop1ByOrderByIdDesc()
+                .orElseThrow(() -> TeacherNotFoundException.EXCEPTION);
+
         String teacherId = id + Integer.parseInt(lastTeacher.getId().substring(3)) + 1;
 
-        if (!teacherRepository.existsById(id)) {
+        if (!teacherRepository.existsById(teacherId)) {
             throw AlreadyExistTeacherException.EXCEPTION;
         }
 
