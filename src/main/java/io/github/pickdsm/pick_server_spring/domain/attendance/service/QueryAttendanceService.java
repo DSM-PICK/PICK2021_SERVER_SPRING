@@ -2,6 +2,7 @@ package io.github.pickdsm.pick_server_spring.domain.attendance.service;
 
 import io.github.pickdsm.pick_server_spring.domain.after_school.domain.AfterSchool;
 import io.github.pickdsm.pick_server_spring.domain.after_school.domain.repository.AfterSchoolRepository;
+import io.github.pickdsm.pick_server_spring.domain.after_school.domain.types.Day;
 import io.github.pickdsm.pick_server_spring.domain.after_school.exception.AfterSchoolNotFoundException;
 import io.github.pickdsm.pick_server_spring.domain.attendance.domain.Attendance;
 import io.github.pickdsm.pick_server_spring.domain.attendance.domain.repository.AttendanceRepository;
@@ -63,7 +64,8 @@ public class QueryAttendanceService {
             studentInfoVOList = attendanceRepository.findMajorStudyStudentByLocationId(locationId);
             attendances = attendanceRepository.findByMajorLocationId(date, locationId);
         } else if(ScheduleName.AFTER_SCHOOL.equals(schedule.getName())) {
-            AfterSchool afterSchool = afterSchoolRepository.findByLocationAndDay(location, date.getDayOfWeek().toString().substring(0, 3))
+            AfterSchool afterSchool = afterSchoolRepository.findByLocationAndDay(location,
+                            Day.valueOf(date.getDayOfWeek().toString().substring(0, 3)))
                     .orElseThrow(() -> AfterSchoolNotFoundException.EXCEPTION);
 
             className = afterSchool.getName();
