@@ -63,7 +63,7 @@ public class QueryAttendanceService {
             studentInfoVOList = attendanceRepository.findMajorStudyStudentByLocationId(locationId);
             attendances = attendanceRepository.findByMajorLocationId(date, locationId);
         } else if(ScheduleName.AFTER_SCHOOL.equals(schedule.getName())) {
-            AfterSchool afterSchool = afterSchoolRepository.findByLocation(location)
+            AfterSchool afterSchool = afterSchoolRepository.findByLocationAndDay(location, date.getDayOfWeek().toString().substring(0, 2))
                     .orElseThrow(() -> AfterSchoolNotFoundException.EXCEPTION);
 
             className = afterSchool.getName();

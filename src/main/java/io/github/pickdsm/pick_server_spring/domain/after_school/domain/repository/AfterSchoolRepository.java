@@ -11,6 +11,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface AfterSchoolRepository extends CrudRepository<AfterSchool, Long> {
 	@Override
 	List<AfterSchool> findAll();
-	Optional<AfterSchool> findByLocation(Location location);
+	Optional<AfterSchool> findByLocationAndDay(Location location, String day);
 	Optional<AfterSchool> findByName(String name);
 }
