@@ -1,7 +1,6 @@
 package io.github.pickdsm.pick_server_spring.domain.attendance.domain.repository;
 
 import io.github.pickdsm.pick_server_spring.domain.attendance.domain.Attendance;
-
 import io.github.pickdsm.pick_server_spring.domain.attendance.domain.repository.vo.StudentInfoVO;
 import io.github.pickdsm.pick_server_spring.domain.location.domain.Location;
 import io.github.pickdsm.pick_server_spring.domain.student.domain.Student;
@@ -53,7 +52,7 @@ public interface AttendanceRepository extends CrudRepository<Attendance, Long> {
 
     @Query("SELECT NEW io.github.pickdsm.pick_server_spring." +
             "domain.attendance.domain.repository.vo.StudentInfoVO(a.student.gcn, a.student.id, a.student.name) " +
-            "FROM tbl_affiliated_after_school a WHERE a.afterSchool.location.id = :locationId")
-    List<StudentInfoVO> findAffiliatedAfterSchoolStudentByLocationId(Long locationId);
+            "FROM tbl_affiliated_after_school a WHERE a.afterSchool.location.id = :locationId AND a.afterSchool.id = :afterSchoolId")
+    List<StudentInfoVO> findAffiliatedAfterSchoolStudentByLocationId(Long locationId, Long afterSchoolId);
 
 }

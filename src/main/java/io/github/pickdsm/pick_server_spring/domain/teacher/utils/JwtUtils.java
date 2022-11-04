@@ -24,7 +24,7 @@ public class JwtUtils {
 		JwtUtils.jwtTokenProvider = jwtTokenProvider;
 	}
 
-	@Value("${jwt.refresh.exp}")
+	@Value("${jwt.refreshExp}")
 	public void setRefreshExp(Long refreshExp) {
 		JwtUtils.refreshExp = refreshExp;
 	}

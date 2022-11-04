@@ -69,7 +69,7 @@ public class QueryAttendanceService {
                     .orElseThrow(() -> AfterSchoolNotFoundException.EXCEPTION);
 
             className = afterSchool.getName();
-            studentInfoVOList = attendanceRepository.findAffiliatedAfterSchoolStudentByLocationId(locationId);
+            studentInfoVOList = attendanceRepository.findAffiliatedAfterSchoolStudentByLocationId(locationId, afterSchool.getId());
             attendances = attendanceRepository.findByAfterSchoolId(date, locationId);
         } else {
             studentInfoVOList = attendanceRepository.findSelfStudyStudentByLocationId(locationId);
